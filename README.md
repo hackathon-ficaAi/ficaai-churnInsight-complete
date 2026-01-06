@@ -48,11 +48,22 @@ Visualização dos componentes do sistema e do fluxo de dados. [Diagrama de Sequ
 ## Setup
 
 ### Como executar o Projeto
+### Pré-requisitos 
+- **Docker** e **Docker Compose** instalados
 
 ### Passo a Passo
 
-1.  Abra o terminal na raiz do projeto.
-2.  Execute o comando abaixo para compilar e subir o ambiente:
+1. Build do back-end (Spring Boot)
+   Abra o terminal **na pasta do back-end** e rode:
+   ```bash
+   ./mvnw clean package
+   ```
+   Se ocorrer erro relacionado a testes, rode:
+   ```bash
+   ./mvnw clean package -DskipTests
+   ```
+   
+2.  Na raiz do projeto execute:
 
 ```bash
 docker-compose up --build
