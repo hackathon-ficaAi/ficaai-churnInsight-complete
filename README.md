@@ -90,29 +90,29 @@ Saída
 ## Testes
 
 ### Exemplos de uso (3 requisições de testes)
-- 1. Cliente com alto risco de cancelamento
+1. Cliente com alto risco de cancelamento
 
-- 2. Cliente fiel (baixo risco de cancelamento)
+2. Cliente fiel (baixo risco de cancelamento)
 
-- 3. Cliente intermediário (probabilidade moderada)
+3. Cliente intermediário (probabilidade moderada)
 
 
 ## Funcionalidades do MVP
 
-- **Endpoints:** ✅ implementado
+**1.Endpoints:** ✅ implementado
   - `api/predict`
   - `api/historico`
-- **Carregamento de modelo preditivo:** ✅ implementado
+**2.Carregamento de modelo preditivo:** ✅ implementado
 
-- **Validação de entrada:** ✅ implementado
+**3.Validação de entrada:** ✅ implementado
 
-- **Resposta estruturada:** ✅ implementado
+**4.Resposta estruturada:** ✅ implementado
 
-- **Persistência de previsões:**  🔜 em desenvolvimento
+**5.Persistência de previsões:**  🔜 em desenvolvimento
 
-- **Containerização:** ✅ implementado
+**6.Containerização:** ✅ implementado
 
-- **Projeto em nuvem OCI - Oracle Cloud Infrastructure:**  🔜 em desenvolvimento
+**7.Projeto em nuvem OCI - Oracle Cloud Infrastructure:**  🔜 em desenvolvimento
 
 
 ## Licença 
