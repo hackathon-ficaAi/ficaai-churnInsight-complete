@@ -102,6 +102,7 @@ Saída
 **1.Endpoints:** ✅ implementado
   - `api/predict`
   - `api/historico`
+    
 **2.Carregamento de modelo preditivo:** ✅ implementado
 
 **3.Validação de entrada:** ✅ implementado
