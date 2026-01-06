@@ -1,0 +1,287 @@
+/* =========================
+   FONTES
+========================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* =========================
+   VARIÁVEIS GLOBAIS
+========================= */
+:root {
+  /* React / Vite base */
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Seu design system */
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --bg: #0c3763;
+  --text-dark: #1e293b;
+  --text-muted: #475569;
+  --border: #cbd5e1;
+  --success-bg: #ecfdf5;
+  --success-text: #065f46;
+  --error-bg: #fef2f2;
+  --error-text: #991b1b;
+
+  color: var(--text-dark);
+  background-color: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eef2ff, var(--bg));
+}
+
+/* =========================
+   LINKS
+========================= */
+a {
+  font-weight: 500;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* =========================
+   CONTAINERS
+========================= */
+.container {
+  background: #fff;
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.container-wide {
+  max-width: 960px;
+  padding: 32px;
+}
+
+/* =========================
+   TÍTULOS
+========================= */
+h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: var(--text-dark);
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+/* =========================
+   FORMULÁRIOS
+========================= */
+label {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  display: block;
+  text-align: left; /* Garante alinhamento à esquerda */
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  transition: 0.2s;
+  background-color: #fff; /* Garante fundo branco */
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+.success{
+  border-color: var(--success-text);
+}
+.error{
+  border-color: var(--error-text);
+}
+
+/* =========================
+   BOTÕES
+========================= */
+button {
+  border-radius: 12px;
+  border: none;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 100%; /* Força botão full width no mobile */
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Botão secundário */
+button.secondary {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+button.secondary:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================
+   RESULTADO
+========================= */
+#resultado {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #f1f5f9;
+  text-align: center;
+}
+
+/* Classes para o Card de Resultado (Resultado.jsx) */
+.card-resultado {
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.success-card {
+  background: var(--success-bg);
+  border: 1px solid var(--success-text);
+  color: var(--success-text);
+}
+
+.error-card {
+  background: var(--error-bg);
+  border: 1px solid var(--error-text);
+  color: var(--error-text);
+}
+
+/* =========================
+   AÇÕES
+========================= */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* =========================
+   TABELA (HISTÓRICO)
+========================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  font-size: 14px;
+}
+
+thead {
+  background: #93959b;
+  color: black;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+  font-weight: 600;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 768px) {
+  .container-wide {
+    padding: 20px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+}
+
+/* =========================
+   ADAPTAÇÕES BANCÁRIO (Correções)
+========================= */
+
+/* 1. Corrige o checkbox para não ocupar 100% de largura */
+input[type="checkbox"] {
+  width: auto;
+  margin-bottom: 0;
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+/* 2. Alinha o container do checkbox */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin: 10px 0 20px 0;
+  padding: 10px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+/* 3. Permite campos lado a lado (País e Gênero) */
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+.form-row > div {
+  flex: 1;
+}

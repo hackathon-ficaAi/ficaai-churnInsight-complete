@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # --- SERVIÇO 1: SEU BACKEND JAVA ---
+  backend:
+    container_name: ficaai-backend
+    build: ./backend-main/
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+      - PYTHON_API_URL=http://data-science-api:8000/predict
+      - PYTHON_API_USAR_MOCK=false
+    networks:
+      - hackathon-net
+    depends_on:
+      - data-science-api  # Espera o Python subir antes
+
+  # --- SERVIÇO 2: PYTHON (Data Science) ---
+  data-science-api:
+    container_name: ficaai-python
+    # CORREÇÃO AQUI: O nome da pasta deve ser igual ao que está no seu VS Code
+    build: ./data-science/
+    ports:
+      - "8000:8000"
+    networks:
+      - hackathon-net
+
+  # --- SERVIÇO 3: FRONTEND (React) ---
+  frontend:
+    container_name: ficaai-frontend
+    # Atenção ao caminho duplo: pasta frontend > pasta frontend
+    build: ./front-end/frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - hackathon-net
+    environment:
+      # O Frontend roda no navegador do usuário, então ele chama o Java via localhost
+      - VITE_API_URL=http://localhost:8080
+
+# --- A REDE INTERNA ---
+networks:
+  hackathon-net:
+    driver: bridge
