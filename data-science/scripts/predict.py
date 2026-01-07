@@ -8,11 +8,11 @@ mlflow.set_tracking_uri("http://localhost:5000")
 # %%
 # Import Modelo
 
-model = mlflow.sklearn.load_model("models:/lgbm_classifier/1")
+model = mlflow.sklearn.load_model("models:/lgbm_classifier/2")
 features = model.feature_names_in_
 model
 # %%
-joblib.dump(model, "..\models\model_pipeline.joblib")
+joblib.dump(model, "./models/model_pipeline.joblib")
 print("\n✓ Pipeline salvo em: ..\models\model_pipeline.joblib")
 
 # %%
@@ -31,6 +31,5 @@ with open("amostra.json","w", encoding="utf-8") as f:
 predicao = model.predict_proba(amostra[features])[:,1]
 amostra['proba'] = predicao
 amostra
-
 
 # %%

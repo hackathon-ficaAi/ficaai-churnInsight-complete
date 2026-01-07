@@ -4,3 +4,5 @@ mlflow.db
 mlartifacts/
 mlruns/
 amostra.json
+.venv/
+.env
