@@ -68,17 +68,47 @@ Visualização dos componentes do sistema e do fluxo de dados. [Diagrama de Sequ
 ```bash
 docker-compose up --build
 ```
-### Links úteis
+### URLs úteis
 
 
-1. Aplicação Web [(Frontend)](http://localhost:5173/frontend/) --> Visualize a aplicação FrontEnd.
+1. Aplicação Web (Frontend) --> Visualize a aplicação FrontEnd.
+```text
+http://localhost:5173/frontend 
+```
+2. Documentação BackEnd (Swagger) --> Teste os endpoints visualmente.
+```text
+http://localhost:8080/swagger-ui
+```
+3. Banco de Dados (H2) --> Acesse o banco em memória.
+```text
+http://localhost:8080/h2-console
+```
+3.1 Credenciais do banco H2
 
-2. Documentação BackEnd [(Swagger)](http://localhost:8080/swagger-ui/index.html)	--> Teste os endpoints visualmente.
+Driver Class: 
+```text
+org.h2.Driver
+```
+JDBC URL:
+```text
+jdbc:h2:mem:ficaaidb
+```
+User Name: 
+```text
+sa
+```
+Password: 
+```text
+password
+```
 
-3. Banco de Dados [(H2)](http://localhost:8080/h2-console) --> Acesse o banco em memória.
-
-4. Documentação Python [(Swagger)](http://localhost:8000/docs)
-[Swagger](http://localhost:8000/redoc) --> Teste os endpoints visualmente.
+4. Documentação Python (Swagger) --> Teste os endpoints visualmente.
+```text  
+http://localhost:8000/docs
+```
+```text
+http://localhost:8000/redoc
+```
 
 
 ### Exemplo de requisição via POST e resposta (JSON)
@@ -137,6 +167,8 @@ Saída
 **6.Containerização:** ✅ implementado
 
 **7.Projeto em nuvem OCI - Oracle Cloud Infrastructure:** ✅ implementado
+
+- Acesse a aplicação FrontEnd 👉 [Previsão de Churn Bancário](http://137.131.255.43:5173/frontend/)
 
 
 ## Licença 
