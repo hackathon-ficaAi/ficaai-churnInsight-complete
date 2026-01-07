@@ -68,6 +68,18 @@ Visualização dos componentes do sistema e do fluxo de dados. [Diagrama de Sequ
 ```bash
 docker-compose up --build
 ```
+### Links úteis
+
+
+1. Aplicação Web [(Frontend)](http://localhost:5173/frontend/) --> Visualize a aplicação FrontEnd.
+
+2. Documentação BackEnd [(Swagger)](http://localhost:8080/swagger-ui/index.html)	--> Teste os endpoints visualmente.
+
+3. Banco de Dados [(H2)](http://localhost:8080/h2-console) --> Acesse o banco em memória.
+
+4. Documentação Python [(Swagger)](http://localhost:8000/docs)
+[Swagger](http://localhost:8000/redoc) --> Teste os endpoints visualmente.
+
 
 ### Exemplo de requisição via POST e resposta (JSON)
 
