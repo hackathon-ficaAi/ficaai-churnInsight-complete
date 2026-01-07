@@ -132,11 +132,11 @@ Saída
 
 **4.Resposta estruturada:** ✅ implementado
 
-**5.Persistência de previsões:**  🔜 em desenvolvimento
+**5.Persistência de previsões:**  ✅ implementado
 
 **6.Containerização:** ✅ implementado
 
-**7.Projeto em nuvem OCI - Oracle Cloud Infrastructure:**  🔜 em desenvolvimento
+**7.Projeto em nuvem OCI - Oracle Cloud Infrastructure:** ✅ implementado
 
 
 ## Licença 
