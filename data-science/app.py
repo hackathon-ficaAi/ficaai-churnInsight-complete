@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import pandas as pd
@@ -29,47 +31,71 @@ class ClientInput(BaseModel):
     saldo: float
     salario_estimado: float
 
+class Schema(BaseModel):
+    schema: dict
+
+class Predict(BaseModel):
+    probabilidade_churn: float
+    previsao_churn: str
+
+@app.get('/', status_code=HTTPStatus.OK, response_model=Schema)
+def read_root():
+    return {'schema': schema}
+
 # Healthcheck
-@app.get("/health")
+@app.get("/health", status_code=HTTPStatus.OK)
 def health():
-    return{"status": "ok"}
+    return {"status": HTTPStatus.OK}
 
 # Schema endpoint
-@app.get("/schema")
+@app.get("/schema", status_code=HTTPStatus.OK)
 def get_schema():
-    return schema
+    return schema['required_features']
 
 # Prediction endpoint
-@app.post("/predict")
+@app.post("/predict", status_code=HTTPStatus.CREATED, response_model=Predict)
 def predict(data: ClientInput):
-    data_dict = data.dict()
+    try:
+        data_dict = data.dict()
+        
+        # Validação de features
+        missing = set(schema["required_features"]) - set(data_dict.keys())
+        if missing:
+            raise HTTPException(
+                status_code=400,
+                detail={
+                    "error": "Missing features",
+                    "missing_features": list(missing)
+                }
+            )
+        
+        # Garantindo a ordem exata usada no treino
+        feature_order = schema["required_features"]
 
-    # validação de features
-    missing = set(schema["required_features"]) - set(data_dict.keys())
-    if missing:
+        X = pd.DataFrame([data_dict])[feature_order]
+        
+        # Aplica o modelo
+        proba = pipeline.predict_proba(X)[0, 1]
+        
+        # Classificação
+        if proba >= 0.8:
+            categoria = "Alto grau de cancelamento"
+        elif proba >= 0.6:
+            categoria = "Médio grau de cancelamento"
+        else:
+            categoria = "Baixo grau de cancelamento"
+        
+        return {
+            "probabilidade_churn": round(float(proba), 4),
+            "previsao_churn": categoria,
+        }
+    
+    except Exception as e:
         raise HTTPException(
-            status_code=400,
+            status_code=500,
             detail={
-                "error": "Missing features",
-                "missing_features": list(missing)
+                "error": "Prediction failed",
+                "message": str(e)
             }
         )
-    
-    # Garantindo a ordem exata usada no treino
-    feature_order = schema["required_features"]
 
-    X = pd.DataFrame([data_dict])[feature_order]
-
-    # aplicando o modelo
-    proba = pipeline.predict_proba(X)[0,1]
-
-    if int(proba >= 0.7):
-        return {
-            "probabilidade_churn": float(proba),
-            "previsao_churn": "Chance alta de cancelamento"
-        }
-    else:
-        return {
-            "probabilidade_churn": float(proba),
-            "previsao_churn": "Chance baixa de cancelamento"
-        }

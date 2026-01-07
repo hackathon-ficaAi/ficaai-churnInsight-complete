@@ -144,10 +144,43 @@ Saída
 
 ### Exemplos de uso (3 requisições de testes)
 1. Cliente com alto risco de cancelamento
+```json
+  {
+    "pais": "frança",
+    "genero": "feminino",
+    "idade": 46.0,
+    "num_produtos": 1,
+    "membro_ativo": 0.0,
+    "saldo": 0.0,
+    "salario_estimado": 72549.27
+  }
+```
 
 2. Cliente fiel (baixo risco de cancelamento)
+```json
+  {
+    "pais": "frança",
+    "genero": "feminino",
+    "idade": 23.0,
+    "num_produtos": 2,
+    "membro_ativo": 1.0,
+    "saldo": 0.0,
+    "salario_estimado": 160976.75
+  }
+```
 
 3. Cliente intermediário (probabilidade moderada)
+```json
+  {
+    "pais": "frança",
+    "genero": "masculino",
+    "idade": 36.0,
+    "num_produtos": 1,
+    "membro_ativo": 0.0,
+    "saldo": 0.0,
+    "salario_estimado": 113931.57
+  }
+```
 
 
 ## Funcionalidades do MVP
@@ -166,7 +199,7 @@ Saída
 
 **6.Containerização:** ✅ implementado
 
-**7.Projeto em nuvem OCI - Oracle Cloud Infrastructure:** ✅ implementado
+**7.Projeto em nuvem OCI - Oracle Cloud Infrastructure:**  ✅ implementado
 
 - Acesse a aplicação FrontEnd 👉 [Previsão de Churn Bancário](http://137.131.255.43:5173/frontend/)
 
