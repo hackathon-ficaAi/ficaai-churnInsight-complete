@@ -1,4 +1,32 @@
 export default function TabelaHistorico({ listaHistorico }) {
+
+ const traduzirPais = (paisOriginal) => {
+    if (!paisOriginal) return "-";
+    
+    // 1. Remove espaços em branco e converte para minúsculo para facilitar a busca
+    const chave = paisOriginal.trim().toLowerCase();
+
+    const dicionario = {
+      "france": "França",
+      "frança": "França", // Caso já venha traduzido
+      "spain": "Espanha",
+      "espanha": "Espanha",
+      "germany": "Alemanha",
+      "alemanha": "Alemanha"
+    };
+
+    // Retorna a tradução ou o original (com a primeira letra maiúscula)
+    return dicionario[chave] || paisOriginal;
+  };
+
+  const traduzirGenero = (generoOriginal) => {
+    if (!generoOriginal) return "";
+    const chave = generoOriginal.trim().toLowerCase();
+    
+    if (chave === "male" || chave === "masculino") return "M";
+    if (chave === "female" || chave === "feminino") return "F";
+    return "?";
+  };
   
   // Verifica se a lista existe e tem itens
   if (!listaHistorico || !listaHistorico.length) {
@@ -37,7 +65,9 @@ export default function TabelaHistorico({ listaHistorico }) {
 
               {/* País e Gênero */}
               <td>
-                {item.pais} <small>({item.genero === "Male" ? "M" : "F"})</small>
+                {traduzirPais(item.pais)} 
+                {" "}
+                <small>({traduzirGenero(item.genero)})</small>
               </td>
 
               <td>{item.idade}</td>
