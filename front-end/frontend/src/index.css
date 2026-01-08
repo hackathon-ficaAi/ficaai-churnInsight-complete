@@ -45,11 +45,19 @@ body {
 
 body {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column; /* Garante que os itens fiquem um embaixo do outro */
+  align-items: center;    /* Centraliza horizontalmente */
+  justify-content: flex-start; /* IMPORTANTE: Começa do topo, não do meio */
+  
   min-width: 320px;
   min-height: 100vh;
+  
+  /* Cria o espaço seguro para os botões não colarem no teto */
+  padding-top: 60px; 
+  padding-bottom: 40px; /* Espaço para rolar até o fim */
+  
   background: linear-gradient(135deg, #eef2ff, var(--bg));
+  overflow-x: hidden; /* Evita rolagem lateral acidental */
 }
 
 /* =========================
@@ -70,11 +78,12 @@ a:hover {
 ========================= */
 .container {
   background: #fff;
-  width: 100%;
-  max-width: 420px;
+  width: 95%; /* Ocupa bem a tela no celular */
+  max-width: 500px; /* Um pouco mais largo que antes, para respirar */
   padding: 32px;
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  margin-top: 20px; /* Garante separação dos botões de cima */
 }
 
 .container-wide {
@@ -102,6 +111,41 @@ label {
   margin-bottom: 6px;
   display: block;
   text-align: left; /* Garante alinhamento à esquerda */
+}
+
+/* =========================
+   BOTÕES DE SELEÇÃO (PAÍS/GÊNERO)
+========================= */
+.selection-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.select-btn {
+  flex: 1; /* Faz os botões dividirem o espaço igualmente */
+  padding: 12px;
+  border: 1px solid var(--border);
+  background-color: #fff;
+  color: var(--text-muted);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.select-btn:hover {
+  background-color: #f8fafc;
+}
+
+/* Estado Ativo (Selecionado) */
+.select-btn.active {
+  background-color: var(--primary); /* Roxo */
+  color: white;
+  border-color: var(--primary);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
 }
 
 input,
@@ -240,17 +284,34 @@ tbody tr:hover {
 /* =========================
    RESPONSIVO
 ========================= */
+/* ============================================================
+   CORREÇÃO DEFINITIVA MOBILE (ESTILO PC)
+   Substitua o bloco @media anterior por este
+============================================================ */
+
 @media (max-width: 768px) {
-  .container-wide {
-    padding: 20px;
+  body {
+    /* Desliga o Flexbox vertical. Isso impede que o site "coma" o topo. */
+    display: block !important;
+    
+    /* Espaço de segurança no topo para os botões (Previsão/Histórico) */
+    padding-top: 80px !important;
+    
+    /* Espaço embaixo para não colar no fim da tela */
+    padding-bottom: 40px !important;
+    
+    /* Garante que o fundo cubra tudo ao rolar a tela */
+    height: auto !important;
+    min-height: 100vh;
   }
 
-  table {
-    font-size: 12px;
-  }
-
-  .actions {
-    flex-direction: column;
+  .container {
+    /* Mantém o cartão centralizado horizontalmente (igual no PC) */
+    margin: 0 auto !important;
+    
+    /* Garante uma margem lateral para não colar na borda do celular */
+    width: 90% !important;
+    max-width: 420px !important; /* Respeita o limite do PC */
   }
 }
 
@@ -284,4 +345,9 @@ input[type="checkbox"] {
 }
 .form-row > div {
   flex: 1;
+}
+
+.placeholder-style {
+  color: var(--text-muted); /* Usa o cinza definido nas variáveis */
+  font-weight: 400;
 }

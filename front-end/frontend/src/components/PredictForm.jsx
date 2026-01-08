@@ -4,8 +4,8 @@ import Resultado from "./Resultado";
 
 export default function PredictForm(onVerHistorico) {
   const [formData, setFormData] = useState({
-    pais: "frança", // Valor padrão
-    genero: "masculino", // Valor padrão
+    pais: "", // Valor padrão
+    genero: "", // Valor padrão
     idade: "",
     num_produtos: "1",
     membro_ativo: true, // Boolean (Checkbox)
@@ -72,6 +72,7 @@ export default function PredictForm(onVerHistorico) {
           <div style={{ flex: 1 }}>
             <label>País</label>
             <select name="pais" value={formData.pais} onChange={handleChange} required>
+            <option value="" disabled hidden>Selecionar</option>
               <option value="frança">França (France)</option>
               <option value="espanha">Espanha (Spain)</option>
               <option value="alemanha">Alemanha (Germany)</option>
@@ -80,6 +81,7 @@ export default function PredictForm(onVerHistorico) {
           <div style={{ flex: 1 }}>
             <label>Gênero</label>
             <select name="genero" value={formData.genero} onChange={handleChange} required>
+              <option value="" disabled hidden>Selecionar</option>
               <option value="masculino">Masculino (Male)</option>
               <option value="feminino">Feminino (Female)</option>
             </select>
@@ -158,8 +160,8 @@ export default function PredictForm(onVerHistorico) {
             className="secondary"
             onClick={() =>
               setFormData({
-                pais: "France",
-                genero: "Male",
+                pais: "",
+                genero: "",
                 idade: "",
                 num_produtos: "1",
                 membro_ativo: true,
