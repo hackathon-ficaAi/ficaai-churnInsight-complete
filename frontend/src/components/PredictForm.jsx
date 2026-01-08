@@ -44,7 +44,7 @@ export default function PredictForm(onVerHistorico) {
         membro_ativo: formData.membro_ativo, // Envia true/false
         saldo: Number(formData.saldo),
         salario_estimado: Number(formData.salario_estimado),
-        
+
         // Campos removidos (credit_score, tenure, cartao) NÃO são enviados.
       };
 
@@ -52,7 +52,9 @@ export default function PredictForm(onVerHistorico) {
       setResultado(response);
     } catch (err) {
       console.error(err);
-      setErro("Erro ao conectar com o backend. Verifique se o Docker está rodando.");
+      setErro(
+        "Erro ao conectar com o backend. Verifique se o Docker está rodando."
+      );
     } finally {
       setLoading(false);
     }
@@ -61,13 +63,23 @@ export default function PredictForm(onVerHistorico) {
   return (
     <div className="container">
       {/* Cabeçalho */}
-      <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
-        <img src="public/FicaAI_logo.png" alt="FicaAI_Logo" style={{ height: "50px" }} />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          marginBottom: "20px",
+        }}
+      >
+        <img
+          src="public/FicaAI_logo.png"
+          alt="FicaAI_Logo"
+          style={{ height: "50px" }}
+        />
         <h1 style={{ margin: 0 }}>Previsão de Churn Bancário</h1>
       </div>
 
       <form onSubmit={handleSubmit}>
-        
         {/* --- DADOS DEMOGRÁFICOS --- */}
         <div style={{ display: "flex", gap: "10px" }}>
           <div style={{ flex: 1 }}>
@@ -89,8 +101,9 @@ export default function PredictForm(onVerHistorico) {
           </div>
         </div>
 
-        <label>Idade</label>
+        <label htmlFor="idade">Idade</label>
         <input
+          id="idade"
           type="number"
           name="idade"
           value={formData.idade}
@@ -101,8 +114,9 @@ export default function PredictForm(onVerHistorico) {
         />
 
         {/* --- DADOS FINANCEIROS --- */}
-        <label>Saldo em Conta (€)</label>
+        <label htmlFor="saldo">Saldo em Conta (€)</label>
         <input
+          id="saldo"
           type="number"
           name="saldo"
           value={formData.saldo}
@@ -112,8 +126,9 @@ export default function PredictForm(onVerHistorico) {
           required
         />
 
-        <label>Salário Estimado (€)</label>
+        <label htmlFor="salario_estimado">Salário Estimado (€)</label>
         <input
+          id="salario_estimado"
           type="number"
           name="salario_estimado"
           value={formData.salario_estimado}
@@ -123,8 +138,9 @@ export default function PredictForm(onVerHistorico) {
           required
         />
 
-        <label>Número de Produtos</label>
+        <label htmlFor="num_produtos">Número de Produtos</label>
         <input
+          id="num_produtos"
           type="number"
           name="num_produtos"
           value={formData.num_produtos}
@@ -136,7 +152,14 @@ export default function PredictForm(onVerHistorico) {
         />
 
         {/* --- CHECKBOX --- */}
-        <div style={{ margin: "15px 0", display: "flex", alignItems: "center", gap: "10px" }}>
+        <div
+          style={{
+            margin: "15px 0",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
           <input
             type="checkbox"
             id="membro_ativo"
@@ -145,13 +168,19 @@ export default function PredictForm(onVerHistorico) {
             onChange={handleChange}
             style={{ width: "20px", height: "20px" }}
           />
-          <label htmlFor="membro_ativo" style={{ margin: 0, cursor: "pointer" }}>
+          <label
+            htmlFor="membro_ativo"
+            style={{ margin: 0, cursor: "pointer" }}
+          >
             Cliente é um Membro Ativo?
           </label>
         </div>
 
         {/* --- AÇÕES --- */}
-        <div className="actions" style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
+        <div
+          className="actions"
+          style={{ marginTop: "20px", display: "flex", gap: "10px" }}
+        >
           <button type="submit" disabled={loading}>
             {loading ? "Processando..." : "Prever Churn"}
           </button>

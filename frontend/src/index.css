@@ -45,19 +45,24 @@ body {
 
 body {
   display: flex;
-  flex-direction: column; /* Garante que os itens fiquem um embaixo do outro */
-  align-items: center;    /* Centraliza horizontalmente */
-  justify-content: flex-start; /* IMPORTANTE: Começa do topo, não do meio */
-  
+  flex-direction: column;
+  /* Garante que os itens fiquem um embaixo do outro */
+  align-items: center;
+  /* Centraliza horizontalmente */
+  justify-content: flex-start;
+  /* IMPORTANTE: Começa do topo, não do meio */
+
   min-width: 320px;
   min-height: 100vh;
-  
+
   /* Cria o espaço seguro para os botões não colarem no teto */
-  padding-top: 60px; 
-  padding-bottom: 40px; /* Espaço para rolar até o fim */
-  
+  padding-top: 60px;
+  padding-bottom: 40px;
+  /* Espaço para rolar até o fim */
+
   background: linear-gradient(135deg, #eef2ff, var(--bg));
-  overflow-x: hidden; /* Evita rolagem lateral acidental */
+  overflow-x: hidden;
+  /* Evita rolagem lateral acidental */
 }
 
 /* =========================
@@ -78,12 +83,15 @@ a:hover {
 ========================= */
 .container {
   background: #fff;
-  width: 95%; /* Ocupa bem a tela no celular */
-  max-width: 500px; /* Um pouco mais largo que antes, para respirar */
+  width: 95%;
+  /* Ocupa bem a tela no celular */
+  max-width: 500px;
+  /* Um pouco mais largo que antes, para respirar */
   padding: 32px;
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-  margin-top: 20px; /* Garante separação dos botões de cima */
+  margin-top: 20px;
+  /* Garante separação dos botões de cima */
 }
 
 .container-wide {
@@ -110,7 +118,8 @@ label {
   color: var(--text-muted);
   margin-bottom: 6px;
   display: block;
-  text-align: left; /* Garante alinhamento à esquerda */
+  text-align: left;
+  /* Garante alinhamento à esquerda */
 }
 
 /* =========================
@@ -123,7 +132,8 @@ label {
 }
 
 .select-btn {
-  flex: 1; /* Faz os botões dividirem o espaço igualmente */
+  flex: 1;
+  /* Faz os botões dividirem o espaço igualmente */
   padding: 12px;
   border: 1px solid var(--border);
   background-color: #fff;
@@ -141,7 +151,8 @@ label {
 
 /* Estado Ativo (Selecionado) */
 .select-btn.active {
-  background-color: var(--primary); /* Roxo */
+  background-color: var(--primary);
+  /* Roxo */
   color: white;
   border-color: var(--primary);
   font-weight: 600;
@@ -157,7 +168,8 @@ select {
   border: 1px solid var(--border);
   font-size: 14px;
   transition: 0.2s;
-  background-color: #fff; /* Garante fundo branco */
+  background-color: #fff;
+  /* Garante fundo branco */
 }
 
 input:focus,
@@ -166,10 +178,12 @@ select:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
-.success{
+
+.success {
   border-color: var(--success-text);
 }
-.error{
+
+.error {
   border-color: var(--error-text);
 }
 
@@ -187,7 +201,8 @@ button {
   color: white;
   cursor: pointer;
   transition: 0.2s;
-  width: 100%; /* Força botão full width no mobile */
+  width: 100%;
+  /* Força botão full width no mobile */
 }
 
 button:hover {
@@ -293,13 +308,13 @@ tbody tr:hover {
   body {
     /* Desliga o Flexbox vertical. Isso impede que o site "coma" o topo. */
     display: block !important;
-    
+
     /* Espaço de segurança no topo para os botões (Previsão/Histórico) */
     padding-top: 80px !important;
-    
+
     /* Espaço embaixo para não colar no fim da tela */
     padding-bottom: 40px !important;
-    
+
     /* Garante que o fundo cubra tudo ao rolar a tela */
     height: auto !important;
     min-height: 100vh;
@@ -308,10 +323,11 @@ tbody tr:hover {
   .container {
     /* Mantém o cartão centralizado horizontalmente (igual no PC) */
     margin: 0 auto !important;
-    
+
     /* Garante uma margem lateral para não colar na borda do celular */
     width: 90% !important;
-    max-width: 420px !important; /* Respeita o limite do PC */
+    max-width: 420px !important;
+    /* Respeita o limite do PC */
   }
 }
 
@@ -343,11 +359,203 @@ input[type="checkbox"] {
   display: flex;
   gap: 12px;
 }
-.form-row > div {
+
+.form-row>div {
   flex: 1;
 }
 
 .placeholder-style {
-  color: var(--text-muted); /* Usa o cinza definido nas variáveis */
+  color: var(--text-muted);
+  /* Usa o cinza definido nas variáveis */
   font-weight: 400;
+}
+
+/* =========================
+   TABELA MOBILE – CARD UX
+========================= */
+
+@media (max-width: 768px) {
+
+  /* Remove aparência de tabela */
+  table {
+    border: none;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  tbody tr {
+    display: block;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border: none;
+    text-align: right;
+    font-size: 14px;
+  }
+
+  /* Label */
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  /* Cliente = título do card */
+  tbody td[data-label="Cliente"] {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 8px;
+  }
+
+  /* Risco em formato de badge */
+  tbody td[data-label="Risco (%)"] strong {
+    display: inline-flex;
+    /* Centraliza conteúdo interno */
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 60px;
+    /* Evita “pular” visualmente */
+    text-align: center;
+  }
+
+}
+
+/* Centraliza texto das colunas */
+td[data-label="Previsão"],
+td[data-label="Risco"],
+th[data-label="Previsão"]{
+  max-width: 140px;
+}
+th[data-label="Risco"] {
+  text-align: center;
+  vertical-align: middle;
+  white-space: normal; /*permite quebra em 2 linhas */
+}
+
+/* =========================
+   BADGES DE RISCO
+========================= */
+
+.risco-alto strong {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.risco-medio strong {
+  background: #fef9c3;
+  color: #92400e;
+}
+
+.risco-baixo strong {
+  background: #dcfce7;
+  color: #065f46;
+}
+
+
+@media (max-width: 768px) {
+
+  tbody tr {
+    padding: 14px;
+  }
+
+  tbody td {
+    padding: 4px 0;
+    font-size: 13px;
+  }
+
+  tbody td::before {
+    font-size: 12px;
+  }
+}
+
+/* =========================
+   PREVISÃO EM 2 LINHAS
+========================= */
+
+.previsao-text {
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.previsao-text strong {
+  font-weight: 600;
+}
+
+.previsao-text span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* =========================
+   DIFERENCIAÇÃO ENTRE CLIENTES
+========================= */
+
+@media (max-width: 768px) {
+
+  tbody tr {
+    margin-bottom: 20px;
+    border-left: 5px solid var(--primary);
+  }
+
+  /* Cliente como título forte */
+  tbody td[data-label="Cliente"] {
+    font-size: 17px;
+    font-weight: 700;
+  }
+}
+
+/* =========================
+   BORDA DO CARD POR RISCO
+========================= */
+
+@media (max-width: 768px) {
+
+  .card-risco-alto {
+    border-left: 6px solid #dc2626;
+    /* vermelho */
+  }
+
+  .card-risco-medio {
+    border-left: 6px solid #facc15;
+    /* amarelo */
+  }
+
+  .card-risco-baixo {
+    border-left: 6px solid #16a34a;
+    /* verde */
+  }
+}
+
+@media (max-width: 768px) {
+  tbody tr {
+    padding-left: 14px;
+  }
+}
+.previsao-text strong {
+  display: block;
 }
