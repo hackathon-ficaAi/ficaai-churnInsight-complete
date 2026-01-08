@@ -4,8 +4,8 @@ import Resultado from "./Resultado";
 
 export default function PredictForm(onVerHistorico) {
   const [formData, setFormData] = useState({
-    pais: "frança", // Valor padrão
-    genero: "masculino", // Valor padrão
+    pais: "", // Valor padrão
+    genero: "", // Valor padrão
     idade: "",
     num_produtos: "1",
     membro_ativo: true, // Boolean (Checkbox)
@@ -82,30 +82,20 @@ export default function PredictForm(onVerHistorico) {
         {/* --- DADOS DEMOGRÁFICOS --- */}
         <div style={{ display: "flex", gap: "10px" }}>
           <div style={{ flex: 1 }}>
-            <label htmlFor="pais">País</label>
-            <select
-              id="pais"
-              name="pais"
-              value={formData.pais}
-              onChange={handleChange}
-              required
-            >
-              <option value="França">França (France)</option>
-              <option value="Espanha">Espanha (Spain)</option>
-              <option value="Alemanha">Alemanha (Germany)</option>
+            <label>País</label>
+            <select name="pais" value={formData.pais} onChange={handleChange} required>
+            <option value="" disabled hidden>Selecionar</option>
+              <option value="frança">França (France)</option>
+              <option value="espanha">Espanha (Spain)</option>
+              <option value="alemanha">Alemanha (Germany)</option>
             </select>
           </div>
           <div style={{ flex: 1 }}>
-            <label htmlFor="genero">Gênero</label>
-            <select
-              id="genero"
-              name="genero"
-              value={formData.genero}
-              onChange={handleChange}
-              required
-            >
-              <option value="Masculino">Masculino (Male)</option>
-              <option value="Feminino">Feminino (Female)</option>
+            <label>Gênero</label>
+            <select name="genero" value={formData.genero} onChange={handleChange} required>
+              <option value="" disabled hidden>Selecionar</option>
+              <option value="masculino">Masculino (Male)</option>
+              <option value="feminino">Feminino (Female)</option>
             </select>
           </div>
         </div>
@@ -199,8 +189,8 @@ export default function PredictForm(onVerHistorico) {
             className="secondary"
             onClick={() =>
               setFormData({
-                pais: "France",
-                genero: "Male",
+                pais: "",
+                genero: "",
                 idade: "",
                 num_produtos: "1",
                 membro_ativo: true,

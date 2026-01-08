@@ -1,22 +1,22 @@
-const API_BASE = 'http://localhost:8080/api';
+const API_BASE = "http://localhost:8080/api";
 
 export async function predictChurn(dados) {
   const response = await fetch(`${API_BASE}/predict`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(dados),
   });
   if (!response.ok) {
-    throw new Error('Erro na previsão de churn');
-  } 
-   return response.json();
+    throw new Error("Erro na previsão de churn");
+  }
+  return response.json();
 }
 export async function getHistorico() {
   const response = await fetch(`${API_BASE}/historico`);
   if (!response.ok) {
-    throw new Error('Erro ao buscar histórico');
+    throw new Error("Erro ao buscar histórico");
   }
   return response.json();
 }
