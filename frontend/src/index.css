@@ -461,17 +461,17 @@ th[data-label="Risco"] {
 ========================= */
 
 .risco-alto strong {
-  background: #fee2e2;
+  background: #ffffff;
   color: #991b1b;
 }
 
 .risco-medio strong {
-  background: #fef9c3;
+  background: #ffffff;
   color: #92400e;
 }
 
 .risco-baixo strong {
-  background: #dcfce7;
+  background: #ffffff;
   color: #065f46;
 }
 

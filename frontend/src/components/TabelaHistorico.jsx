@@ -1,3 +1,5 @@
+import { getNivelRisco } from "../utils/riscoUtils";
+
 export default function TabelaHistorico({ listaHistorico }) {
   const traduzirPais = (paisOriginal) => {
     if (!paisOriginal) return "-";
@@ -40,6 +42,9 @@ export default function TabelaHistorico({ listaHistorico }) {
       currency: "EUR", // Dataset original é em Euros, mas pode mudar para BRL
     }).format(value);
   };
+  const historicoOrdenado = [...listaHistorico].sort(
+    (a, b) => b.probabilidade - a.probabilidade
+  );
 
   return (
     <div className="table-container">
@@ -57,82 +62,54 @@ export default function TabelaHistorico({ listaHistorico }) {
           </tr>
         </thead>
         <tbody>
-          {listaHistorico.map((item) => (
-            <tr
-              key={item.id}
-              className={
-                item.probabilidade >= 0.8
-                  ? "card-risco-alto"
-                  : item.probabilidade >= 0.6
-                  ? "card-risco-medio"
-                  : "card-risco-baixo"
-              }
-            >
-              {/* Data formatada em uma única coluna para economizar espaço */}
-              <td data-label="Data/Hora">
-                {new Date(item.dataAnalise).toLocaleString("pt-BR")}
-              </td>
+          {historicoOrdenado.map((item) => {
+            const risco = getNivelRisco(item.probabilidade);
 
-              {/* País e Gênero */}
-              <td data-label="Cliente">
-                {traduzirPais(item.pais)}{" "}
-                <small>({traduzirGenero(item.genero)})</small>
-              </td>
+            return (
+              <tr key={item.id} className={`card-${risco.classe}`}>
+                <td data-label="Data/Hora">
+                  {new Date(item.dataAnalise).toLocaleString("pt-BR")}
+                </td>
 
-              <td data-label="Idade">{item.idade}</td>
+                <td data-label="Cliente">
+                  {traduzirPais(item.pais)}{" "}
+                  <small>({traduzirGenero(item.genero)})</small>
+                </td>
 
-              {/* Saldo formatado */}
-              <td data-label="Saldo">{formatMoney(item.saldo)}</td>
+                <td data-label="Idade">{item.idade}</td>
 
-              <td data-label="Produtos">{item.numProdutos}</td>
+                <td data-label="Saldo">{formatMoney(item.saldo)}</td>
 
-              {/* Membro Ativo (Sim/Não) */}
-              <td data-label="Ativo">
-                <span
-                  style={{
-                    color: item.membroAtivo ? "green" : "gray",
-                    fontWeight: "bold",
-                  }}
+                <td data-label="Produtos">{item.numProdutos}</td>
+
+                <td data-label="Ativo">
+                  <span
+                    style={{
+                      color: item.membroAtivo ? "green" : "gray",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {item.membroAtivo ? "Sim" : "Não"}
+                  </span>
+                </td>
+
+                {/* PREVISÃO – padrão do index.css */}
+                <td
+                  data-label="Previsão"
+                  className={`previsao-text ${risco.classe}`}
                 >
-                  {item.membroAtivo ? "Sim" : "Não"}
-                </span>
-              </td>
+                  <strong>
+                    {risco.icon} {risco.label}
+                  </strong>
+                </td>
 
-              {/* Previsão com cor condicional */}
-              <td data-label="Previsão de Churn" className="previsao-text">
-                {item.previsao?.includes("Alto") ? (
-                  <>
-                    <strong>Alto Grau</strong>
-                  </>
-                ) : item.previsao?.includes("Medio") ||
-                  item.previsao?.includes("Médio") ? (
-                  <>
-                    <strong>Médio Grau </strong>
-                  </>
-                ) : item.previsao?.includes("Baixo") ? (
-                  <>
-                    <strong>Baixo Grau</strong>
-                  </>
-                ) : (
-                  item.previsao
-                )}
-              </td>
-
-              {/* Probabilidade */}
-              <td
-                data-label="Risco (%)"
-                className={
-                  item.probabilidade >= 0.8
-                    ? "risco-alto"
-                    : item.probabilidade >= 0.6
-                    ? "risco-medio"
-                    : "risco-baixo"
-                }
-              >
-                <strong>{(item.probabilidade * 100).toFixed(1)}%</strong>
-              </td>
-            </tr>
-          ))}
+                {/* RISCO (%) */}
+                <td data-label="Risco" className={risco.classe}>
+                  <strong>{(item.probabilidade * 100).toFixed(1)}%</strong>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
