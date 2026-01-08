@@ -40,3 +40,64 @@
 .read-the-docs {
   color: #888;
 }
+@media (max-width: 768px) {
+
+  table {
+    border: none;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  tbody tr {
+    display: block;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border: none;
+    font-size: 14px;
+  }
+
+  /* Cliente (primeira linha) */
+  tbody td[data-label="Cliente"] {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    padding-bottom: 8px;
+  }
+
+  /* Risco em destaque */
+  tbody td[data-label="Risco"] {
+    margin-top: 8px;
+    font-size: 15px;
+  }
+
+  tbody td[data-label="Risco"] strong {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+  }
+
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+}
