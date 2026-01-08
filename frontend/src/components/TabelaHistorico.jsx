@@ -58,7 +58,7 @@ export default function TabelaHistorico({ listaHistorico }) {
             <th>Prod.</th>
             <th>Ativo?</th>
             <th>Previsão de Churn</th>
-            <th>Risco(%)</th>
+            <th>Risco</th>
           </tr>
         </thead>
         <tbody>
