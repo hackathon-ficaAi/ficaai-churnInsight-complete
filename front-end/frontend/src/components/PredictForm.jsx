@@ -3,6 +3,7 @@ import { predictChurn } from "../services/api";
 import Resultado from "./Resultado";
 
 export default function PredictForm(onVerHistorico) {
+
   const [formData, setFormData] = useState({
     pais: "", // Valor padrão
     genero: "", // Valor padrão
@@ -85,17 +86,17 @@ export default function PredictForm(onVerHistorico) {
             <label>País</label>
             <select name="pais" value={formData.pais} onChange={handleChange} required>
             <option value="" disabled hidden>Selecionar</option>
-              <option value="frança">França (France)</option>
-              <option value="espanha">Espanha (Spain)</option>
-              <option value="alemanha">Alemanha (Germany)</option>
+              <option value="France">França (France)</option>
+              <option value="Spain">Espanha (Spain)</option>
+              <option value="Germany">Alemanha (Germany)</option>
             </select>
           </div>
           <div style={{ flex: 1 }}>
             <label>Gênero</label>
             <select name="genero" value={formData.genero} onChange={handleChange} required>
               <option value="" disabled hidden>Selecionar</option>
-              <option value="masculino">Masculino (Male)</option>
-              <option value="feminino">Feminino (Female)</option>
+              <option value="Male">Masculino (Male)</option>
+              <option value="Female">Feminino (Female)</option>
             </select>
           </div>
         </div>
