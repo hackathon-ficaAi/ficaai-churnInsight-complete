@@ -30,7 +30,8 @@ services:
   # --- SERVIÇO 3: FRONTEND (React) ---
   frontend:
     container_name: ficaai-frontend
-    # Atenção ao caminho duplo: pasta frontend > pasta frontend
+    # Remoção do caminho duplo: pasta frontend > pasta frontend
+    # Agora está correto
     build: ./frontend
     ports:
       - "5173:5173"
