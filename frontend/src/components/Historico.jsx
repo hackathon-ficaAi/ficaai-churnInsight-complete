@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getHistorico } from "../services/api";
 import TabelaHistorico from "./TabelaHistorico";
 
-export default function Historico({voltarAoFormulario}) {
+export default function Historico({ voltarAoFormulario }) {
   const [lista, setLista] = useState([]);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(null);
@@ -25,9 +25,22 @@ export default function Historico({voltarAoFormulario}) {
   return (
     <div className="container container-wide">
       {/* Logo e título */}
-      <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
-        <img src="./FicaAI_logo.png" alt="FicaAI_Logo" style={{ height: "50px" }} />
-        <h1 style={{ margin: 0 }}>Histórico de Análises</h1>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          marginBottom: "20px",
+        }}
+      >
+        <img
+          src="./FicaAI_logo.png"
+          alt="FicaAI_Logo"
+          style={{ height: "50px" }}
+        />
+        <h1 className="historico-title" style={{ margin: 0 }}>
+          Histórico de Análises
+        </h1>
       </div>
 
       {loading && <p>🔄 Carregando...</p>}
