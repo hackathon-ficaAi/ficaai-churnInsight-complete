@@ -12,7 +12,7 @@ model = mlflow.sklearn.load_model("models:/lgbm_classifier/2")
 features = model.feature_names_in_
 model
 # %%
-joblib.dump(model, "./models/model_pipeline.joblib")
+joblib.dump(model, "data-science/models/model_pipeline.joblib")
 print("\n✓ Pipeline salvo em: ..\models\model_pipeline.joblib")
 
 # %%
