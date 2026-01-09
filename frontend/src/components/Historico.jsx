@@ -26,7 +26,7 @@ export default function Historico({voltarAoFormulario}) {
     <div className="container container-wide">
       {/* Logo e título */}
       <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
-        <img src="public/FicaAI_logo.png" alt="FicaAI_Logo" style={{ height: "50px" }} />
+        <img src="./FicaAI_logo.png" alt="FicaAI_Logo" style={{ height: "50px" }} />
         <h1 style={{ margin: 0 }}>Histórico de Análises</h1>
       </div>
 

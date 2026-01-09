@@ -67,8 +67,10 @@ export default function TabelaHistorico({ listaHistorico }) {
 
             return (
               <tr key={item.id} className={`card-${risco.classe}`}>
-                <td data-label="Data/Hora">
-                  {new Date(item.dataAnalise).toLocaleString("pt-BR")}
+                <td data-label="Data/Hora" className="data-hora">
+                  {new Date(item.dataAnalise).toLocaleDateString("pt-BR")}
+                  <br />
+                  {new Date(item.dataAnalise).toLocaleTimeString("pt-BR")}
                 </td>
 
                 <td data-label="Cliente">

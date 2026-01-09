@@ -1,0 +1,28 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+}
+
+thead {
+    background: #93959b;
+}
+
+th,
+td {
+    padding: 14px 12px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.risco-alto strong {
+    color: #991b1b;
+}
+
+.risco-medio strong {
+    color: #92400e;
+}
+
+.risco-baixo strong {
+    color: #065f46;
+}
