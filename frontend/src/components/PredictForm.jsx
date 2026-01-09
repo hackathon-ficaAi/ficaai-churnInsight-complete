@@ -87,9 +87,11 @@ export default function PredictForm(onVerHistorico) {
         }}
       >
         <img
-          src="public/FicaAI_logo.png"
-          alt="FicaAI_Logo"
-          style={{ height: "50px" }}
+          src="./FicaAI_logo.png"
+          alt="Logo FicaAI"
+          width={"60"}
+          height={"60"}
+          loading="lazy"
         />
         <h1 style={{ margin: 0 }}>Previsão de Churn Bancário</h1>
       </div>
@@ -98,8 +100,9 @@ export default function PredictForm(onVerHistorico) {
         {/* --- DADOS DEMOGRÁFICOS --- */}
         <div style={{ display: "flex", gap: "10px" }}>
           <div style={{ flex: 1 }}>
-            <label>País</label>
+            <label htmlFor="pais">País</label>
             <select
+              id="pais"
               name="pais"
               value={formData.pais}
               onChange={handleChange}
@@ -114,8 +117,9 @@ export default function PredictForm(onVerHistorico) {
             </select>
           </div>
           <div style={{ flex: 1 }}>
-            <label>Gênero</label>
+            <label htmlFor="genero">Gênero</label>
             <select
+              id="genero"
               name="genero"
               value={formData.genero}
               onChange={handleChange}

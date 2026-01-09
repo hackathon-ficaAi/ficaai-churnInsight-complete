@@ -1,0 +1,24 @@
+@media (max-width: 768px) {
+    body {
+        display: block;
+        padding-top: 80px;
+    }
+
+    table {
+        border: none;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody tr {
+        background: #fff;
+        border-radius: 16px;
+        padding: 16px;
+    }
+
+    .card-risco-alto {
+        border-left: 6px solid #dc2626;
+    }
+}

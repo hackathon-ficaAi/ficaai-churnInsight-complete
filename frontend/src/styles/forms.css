@@ -1,0 +1,40 @@
+label {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    display: block;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.selection-group {
+    display: flex;
+    gap: 10px;
+}
+
+.select-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+}
+
+.select-btn.active {
+    background: var(--primary);
+    color: #fff;
+}
