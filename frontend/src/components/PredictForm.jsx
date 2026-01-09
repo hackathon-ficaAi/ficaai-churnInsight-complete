@@ -3,7 +3,6 @@ import { predictChurn } from "../services/api";
 import Resultado from "./Resultado";
 
 export default function PredictForm(onVerHistorico) {
-
   const [formData, setFormData] = useState({
     pais: "", // Valor padrão
     genero: "", // Valor padrão
@@ -25,6 +24,22 @@ export default function PredictForm(onVerHistorico) {
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
+  };
+
+  const handleClear = () => {
+    setFormData({
+      pais: "",
+      genero: "",
+      idade: "",
+      num_produtos: "1",
+      membro_ativo: true,
+      saldo: "",
+      salario_estimado: "",
+    });
+
+    setResultado(null);
+    setErro(null);
+    setLoading(false);
   };
 
   const handleSubmit = async (e) => {
@@ -84,8 +99,15 @@ export default function PredictForm(onVerHistorico) {
         <div style={{ display: "flex", gap: "10px" }}>
           <div style={{ flex: 1 }}>
             <label>País</label>
-            <select name="pais" value={formData.pais} onChange={handleChange} required>
-            <option value="" disabled hidden>Selecionar</option>
+            <select
+              name="pais"
+              value={formData.pais}
+              onChange={handleChange}
+              required
+            >
+              <option value="" disabled hidden>
+                Selecionar
+              </option>
               <option value="France">França (France)</option>
               <option value="Spain">Espanha (Spain)</option>
               <option value="Germany">Alemanha (Germany)</option>
@@ -93,8 +115,15 @@ export default function PredictForm(onVerHistorico) {
           </div>
           <div style={{ flex: 1 }}>
             <label>Gênero</label>
-            <select name="genero" value={formData.genero} onChange={handleChange} required>
-              <option value="" disabled hidden>Selecionar</option>
+            <select
+              name="genero"
+              value={formData.genero}
+              onChange={handleChange}
+              required
+            >
+              <option value="" disabled hidden>
+                Selecionar
+              </option>
               <option value="Male">Masculino (Male)</option>
               <option value="Female">Feminino (Female)</option>
             </select>
@@ -188,17 +217,7 @@ export default function PredictForm(onVerHistorico) {
           <button
             type="button"
             className="secondary"
-            onClick={() =>
-              setFormData({
-                pais: "",
-                genero: "",
-                idade: "",
-                num_produtos: "1",
-                membro_ativo: true,
-                saldo: "",
-                salario_estimado: "",
-              })
-            }
+            onClick={handleClear}
           >
             Limpar
           </button>
@@ -206,7 +225,7 @@ export default function PredictForm(onVerHistorico) {
       </form>
 
       {erro && <div className="error">{erro}</div>}
-      <Resultado resultado={resultado} />
+      {resultado &&<Resultado resultado={resultado} />}
     </div>
   );
 }

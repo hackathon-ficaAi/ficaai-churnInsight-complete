@@ -79,11 +79,11 @@ def predict(data: ClientInput):
         
         # Classificação
         if proba >= 0.8:
-            categoria = "Alto grau de cancelamento"
+            categoria = "Alto Grau de Cancelamento"
         elif proba >= 0.6:
-            categoria = "Médio grau de cancelamento"
+            categoria = "Médio Grau de Cancelamento"
         else:
-            categoria = "Baixo grau de cancelamento"
+            categoria = "Baixo Grau de Cancelamento"
         
         return {
             "probabilidade_churn": round(float(proba), 4),
