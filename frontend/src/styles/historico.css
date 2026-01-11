@@ -3,26 +3,56 @@ table {
     border-collapse: collapse;
     margin-top: 24px;
 }
-
-thead {
-    background: #93959b;
+.historico-title {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 24px;
 }
 
+/* Cabeçalho */
+thead {
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
+}
+
+thead th {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-bottom: 2px solid #d1d5db;
+}
+
+/* Células */
 th,
 td {
     padding: 14px 12px;
     text-align: center;
     vertical-align: middle;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Linhas alternadas */
+tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+tbody tr:hover {
+    background-color: #eef2ff;
+    transition: background-color 0.2s ease;
 }
 
 .risco-alto strong {
     color: #991b1b;
+    font-weight: 700;
 }
 
 .risco-medio strong {
     color: #92400e;
+    font-weight: 700;
 }
 
 .risco-baixo strong {
     color: #065f46;
+    font-weight: 700;
 }
