@@ -143,7 +143,7 @@ Saída
 ## Testes
 
 ### Exemplos de uso (3 requisições de testes)
-1. Cliente com alto risco de cancelamento
+1. Cliente com alto grau de cancelamento
 ```json
   {
     "pais": "frança",
@@ -156,7 +156,7 @@ Saída
   }
 ```
 
-2. Cliente fiel (baixo risco de cancelamento)
+2. Cliente fiel (baixo grau de cancelamento)
 ```json
   {
     "pais": "frança",
@@ -169,7 +169,7 @@ Saída
   }
 ```
 
-3. Cliente intermediário (probabilidade moderada)
+3. Cliente com médio grau de cancelamento
 ```json
   {
     "pais": "frança",
