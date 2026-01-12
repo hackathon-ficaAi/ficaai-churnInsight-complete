@@ -24,6 +24,8 @@ services:
     build: ./data-science/
     ports:
       - "8000:8000"
+    volumes:
+      - ./data-science/data:/app/data
     networks:
       - hackathon-net
 
