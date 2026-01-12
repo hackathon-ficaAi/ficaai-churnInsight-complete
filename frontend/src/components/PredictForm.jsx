@@ -2,6 +2,8 @@ import { useState } from "react";
 import { predictChurn } from "../services/api";
 import Resultado from "./Resultado";
 
+const LIMITE_MAXIMO = 10_000_000_000_000; // 10 trilhões
+
 export default function PredictForm(onVerHistorico) {
   const [formData, setFormData] = useState({
     pais: "", // Valor padrão
@@ -20,9 +22,53 @@ export default function PredictForm(onVerHistorico) {
   // Manipula mudanças nos inputs (Texto, Número e Checkbox)
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
+    // Checkbox
+    if (type === "checkbox") {
+      setFormData({
+        ...formData,
+        [name]: checked,
+      });
+      return;
+    }
+
+    // Campos numéricos
+    if (type === "number") {
+      // Permite limpar o campo
+      if (value === "") {
+        setFormData({ ...formData, [name]: "" });
+        setErro(null);
+        return;
+      }
+
+      const numero = Number(value);
+      if (isNaN(numero)) return;
+
+      // Limite apenas para saldo e salário
+      if (
+        (name === "saldo" || name === "salario_estimado") &&
+        numero > LIMITE_MAXIMO
+      ) {
+        setErro(
+          `${
+            name === "saldo" ? "Saldo" : "Salário"
+          } máximo permitido: € 10 trilhões`
+        );
+        return;
+      }
+
+      setErro(null);
+      setFormData({
+        ...formData,
+        [name]: numero,
+      });
+      return;
+    }
+
+    // Texto / select
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     });
   };
 
@@ -156,6 +202,8 @@ export default function PredictForm(onVerHistorico) {
           onChange={handleChange}
           placeholder="Ex: 85000.50"
           step="0.01"
+          min={0}
+          max={LIMITE_MAXIMO}
           required
         />
 
@@ -168,6 +216,8 @@ export default function PredictForm(onVerHistorico) {
           onChange={handleChange}
           placeholder="Ex: 60000.00"
           step="0.01"
+          min={0}
+          max={LIMITE_MAXIMO}
           required
         />
 
@@ -218,18 +268,14 @@ export default function PredictForm(onVerHistorico) {
             {loading ? "Processando..." : "Prever Churn"}
           </button>
 
-          <button
-            type="button"
-            className="secondary"
-            onClick={handleClear}
-          >
+          <button type="button" className="secondary" onClick={handleClear}>
             Limpar
           </button>
         </div>
       </form>
 
       {erro && <div className="error">{erro}</div>}
-      {resultado &&<Resultado resultado={resultado} />}
+      {resultado && <Resultado resultado={resultado} />}
     </div>
   );
 }
