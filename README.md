@@ -24,6 +24,7 @@
 - [Arquitetura Inicial](#arquitetura-inicial)
 - [Setup](#setup)
 - [Testes](#testes)
+- [Notebook Completo](#notebook-completo)
 - [Funcionalidades do MVP](#funcionalidades-do-mvp)
 - [Dependências e Versões das Ferramentas](#dependências-e-versões-das-ferramentas)
 - [Licença](#licença)
@@ -181,7 +182,8 @@ Saída
     "salario_estimado": 113931.57
   }
 ```
-
+## Notebook Completo 
+[Projeto Final ChurnBank](https://colab.research.google.com/drive/1MQzkmvdJQVgpMZ85ETcQvxSZM8JtCFYY)
 
 ## Funcionalidades do MVP
 
