@@ -20,3 +20,43 @@ button.secondary {
     gap: 12px;
     margin-top: 24px;
 }
+
+/* Botão do Dashboard (📊) */
+.btn-dashboard {
+    text-decoration: none; /* Remove sublinhado do link */
+    background-color: #f1f5f9; /* Fundo cinza claro */
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0 12px; /* Largura do botão */
+    font-size: 20px; /* Tamanho do emoji */
+    
+    /* Centralização e Tamanho */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px; /* Altura fixa igual aos outros botões */
+    transition: all 0.2s ease;
+}
+
+.btn-dashboard:hover {
+    background-color: #e2e8f0;
+    transform: translateY(-2px); /* Efeito de subidinha */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+button.btn-neutral {
+    /* O !important aqui é vital para remover o linear-gradient roxo padrão */
+    background: #f1f5f9 !important; 
+    border: 1px solid #cbd5e1 !important;
+    color: #1e293b !important; /* Força o texto a ficar escuro */
+    
+    /* Remove sombras ou brilhos do botão roxo original */
+    box-shadow: none !important; 
+    transition: all 0.2s ease;
+}
+
+button.btn-neutral:hover {
+    background: #e2e8f0 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+}
