@@ -4,19 +4,17 @@ export default function TabelaHistorico({ listaHistorico }) {
   const traduzirPais = (paisOriginal) => {
     if (!paisOriginal) return "-";
 
-    // 1. Remove espaços em branco e converte para minúsculo para facilitar a busca
     const chave = paisOriginal.trim().toLowerCase();
 
     const dicionario = {
       france: "França",
-      frança: "França", // Caso já venha traduzido
+      frança: "França",
       spain: "Espanha",
       espanha: "Espanha",
       germany: "Alemanha",
       alemanha: "Alemanha",
     };
 
-    // Retorna a tradução ou o original (com a primeira letra maiúscula)
     return dicionario[chave] || paisOriginal;
   };
 
@@ -29,19 +27,42 @@ export default function TabelaHistorico({ listaHistorico }) {
     return "?";
   };
 
-  // Verifica se a lista existe e tem itens
+  // --- CORREÇÃO DE HORA AQUI ---
+  const formatarDataBR = (dataString) => {
+    if (!dataString) return "-";
+    
+    // TRUQUE: Se a string vier sem "Z", adicionamos na força bruta.
+    // Isso avisa o navegador: "Ei, essa data é UTC (Londres), converta para Brasil!"
+    let dataParaConverter = dataString;
+    if (typeof dataString === 'string' && !dataString.endsWith('Z')) {
+        dataParaConverter += 'Z';
+    }
+
+    const data = new Date(dataParaConverter);
+
+    return data.toLocaleString("pt-BR", {
+        timeZone: "America/Sao_Paulo",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+    });
+  };
+
   if (!listaHistorico || !listaHistorico.length) {
     return <p className="no-data">Nenhum histórico disponível.</p>;
   }
 
-  // Função auxiliar para formatar dinheiro (Euro ou Real)
   const formatMoney = (value) => {
     if (value === null || value === undefined) return "-";
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
-      currency: "EUR", // Dataset original é em Euros, mas pode mudar para BRL
+      currency: "EUR",
     }).format(value);
   };
+  
   const historicoOrdenado = [...listaHistorico].sort(
     (a, b) => b.probabilidade - a.probabilidade
   );
@@ -67,10 +88,9 @@ export default function TabelaHistorico({ listaHistorico }) {
 
             return (
               <tr key={item.id} className={`card-${risco.classe}`}>
+                {/* APLICA A FORMATAÇÃO CORRIGIDA */}
                 <td data-label="Data/Hora" className="data-hora">
-                  {new Date(item.dataAnalise).toLocaleDateString("pt-BR")}
-                  <br />
-                  {new Date(item.dataAnalise).toLocaleTimeString("pt-BR")}
+                  {formatarDataBR(item.dataAnalise)}
                 </td>
 
                 <td data-label="Cliente">
@@ -95,7 +115,6 @@ export default function TabelaHistorico({ listaHistorico }) {
                   </span>
                 </td>
 
-                {/* PREVISÃO – padrão do index.css */}
                 <td
                   data-label="Previsão"
                   className={`previsao-text ${risco.classe}`}
@@ -105,7 +124,6 @@ export default function TabelaHistorico({ listaHistorico }) {
                   </strong>
                 </td>
 
-                {/* RISCO (%) */}
                 <td data-label="Risco" className={risco.classe}>
                   <strong>{(item.probabilidade * 100).toFixed(1)}%</strong>
                 </td>
