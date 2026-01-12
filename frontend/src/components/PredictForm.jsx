@@ -2,8 +2,9 @@ import { useState } from "react";
 import { predictChurn } from "../services/api";
 import Resultado from "./Resultado";
 
-export default function PredictForm(onVerHistorico) {
+const LIMITE_MAXIMO = 10_000_000_000_000; // 10 trilhões
 
+export default function PredictForm(onVerHistorico) {
   const [formData, setFormData] = useState({
     pais: "", // Valor padrão
     genero: "", // Valor padrão
@@ -21,10 +22,70 @@ export default function PredictForm(onVerHistorico) {
   // Manipula mudanças nos inputs (Texto, Número e Checkbox)
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
+    // Checkbox
+    if (type === "checkbox") {
+      setFormData({
+        ...formData,
+        [name]: checked,
+      });
+      return;
+    }
+
+    // Campos numéricos
+    if (type === "number") {
+      // Permite limpar o campo
+      if (value === "") {
+        setFormData({ ...formData, [name]: "" });
+        setErro(null);
+        return;
+      }
+
+      const numero = Number(value);
+      if (isNaN(numero)) return;
+
+      // Limite apenas para saldo e salário
+      if (
+        (name === "saldo" || name === "salario_estimado") &&
+        numero > LIMITE_MAXIMO
+      ) {
+        setErro(
+          `${
+            name === "saldo" ? "Saldo" : "Salário"
+          } máximo permitido: € 10 trilhões`
+        );
+        return;
+      }
+
+      setErro(null);
+      setFormData({
+        ...formData,
+        [name]: numero,
+      });
+      return;
+    }
+
+    // Texto / select
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     });
+  };
+
+  const handleClear = () => {
+    setFormData({
+      pais: "",
+      genero: "",
+      idade: "",
+      num_produtos: "1",
+      membro_ativo: true,
+      saldo: "",
+      salario_estimado: "",
+    });
+
+    setResultado(null);
+    setErro(null);
+    setLoading(false);
   };
 
   const handleSubmit = async (e) => {
@@ -72,9 +133,11 @@ export default function PredictForm(onVerHistorico) {
         }}
       >
         <img
-          src="public/FicaAI_logo.png"
-          alt="FicaAI_Logo"
-          style={{ height: "50px" }}
+          src="./FicaAI_logo.png"
+          alt="Logo FicaAI"
+          width={"60"}
+          height={"60"}
+          loading="lazy"
         />
         <h1 style={{ margin: 0 }}>Previsão de Churn Bancário</h1>
       </div>
@@ -83,18 +146,34 @@ export default function PredictForm(onVerHistorico) {
         {/* --- DADOS DEMOGRÁFICOS --- */}
         <div style={{ display: "flex", gap: "10px" }}>
           <div style={{ flex: 1 }}>
-            <label>País</label>
-            <select name="pais" value={formData.pais} onChange={handleChange} required>
-            <option value="" disabled hidden>Selecionar</option>
+            <label htmlFor="pais">País</label>
+            <select
+              id="pais"
+              name="pais"
+              value={formData.pais}
+              onChange={handleChange}
+              required
+            >
+              <option value="" disabled hidden>
+                Selecionar
+              </option>
               <option value="France">França (France)</option>
               <option value="Spain">Espanha (Spain)</option>
               <option value="Germany">Alemanha (Germany)</option>
             </select>
           </div>
           <div style={{ flex: 1 }}>
-            <label>Gênero</label>
-            <select name="genero" value={formData.genero} onChange={handleChange} required>
-              <option value="" disabled hidden>Selecionar</option>
+            <label htmlFor="genero">Gênero</label>
+            <select
+              id="genero"
+              name="genero"
+              value={formData.genero}
+              onChange={handleChange}
+              required
+            >
+              <option value="" disabled hidden>
+                Selecionar
+              </option>
               <option value="Male">Masculino (Male)</option>
               <option value="Female">Feminino (Female)</option>
             </select>
@@ -123,6 +202,8 @@ export default function PredictForm(onVerHistorico) {
           onChange={handleChange}
           placeholder="Ex: 85000.50"
           step="0.01"
+          min={0}
+          max={LIMITE_MAXIMO}
           required
         />
 
@@ -135,6 +216,8 @@ export default function PredictForm(onVerHistorico) {
           onChange={handleChange}
           placeholder="Ex: 60000.00"
           step="0.01"
+          min={0}
+          max={LIMITE_MAXIMO}
           required
         />
 
@@ -185,28 +268,14 @@ export default function PredictForm(onVerHistorico) {
             {loading ? "Processando..." : "Prever Churn"}
           </button>
 
-          <button
-            type="button"
-            className="secondary"
-            onClick={() =>
-              setFormData({
-                pais: "",
-                genero: "",
-                idade: "",
-                num_produtos: "1",
-                membro_ativo: true,
-                saldo: "",
-                salario_estimado: "",
-              })
-            }
-          >
+          <button type="button" className="secondary" onClick={handleClear}>
             Limpar
           </button>
         </div>
       </form>
 
       {erro && <div className="error">{erro}</div>}
-      <Resultado resultado={resultado} />
+      {resultado && <Resultado resultado={resultado} />}
     </div>
   );
 }

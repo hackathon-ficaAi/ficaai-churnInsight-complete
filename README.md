@@ -24,6 +24,7 @@
 - [Arquitetura Inicial](#arquitetura-inicial)
 - [Setup](#setup)
 - [Testes](#testes)
+- [Notebook Completo](#notebook-completo)
 - [Funcionalidades do MVP](#funcionalidades-do-mvp)
 - [Dependências e Versões das Ferramentas](#dependências-e-versões-das-ferramentas)
 - [Licença](#licença)
@@ -143,7 +144,7 @@ Saída
 ## Testes
 
 ### Exemplos de uso (3 requisições de testes)
-1. Cliente com alto risco de cancelamento
+1. Cliente com alto grau de cancelamento
 ```json
   {
     "pais": "frança",
@@ -156,7 +157,7 @@ Saída
   }
 ```
 
-2. Cliente fiel (baixo risco de cancelamento)
+2. Cliente fiel (baixo grau de cancelamento)
 ```json
   {
     "pais": "frança",
@@ -169,7 +170,7 @@ Saída
   }
 ```
 
-3. Cliente intermediário (probabilidade moderada)
+3. Cliente com médio grau de cancelamento
 ```json
   {
     "pais": "frança",
@@ -181,7 +182,8 @@ Saída
     "salario_estimado": 113931.57
   }
 ```
-
+## Notebook Completo 
+[Projeto Final ChurnBank](https://colab.research.google.com/drive/1MQzkmvdJQVgpMZ85ETcQvxSZM8JtCFYY)
 
 ## Funcionalidades do MVP
 
@@ -201,7 +203,7 @@ Saída
 
 **7.Projeto em nuvem OCI - Oracle Cloud Infrastructure:**  ✅ implementado
 
-- Acesse a aplicação FrontEnd 👉 [Previsão de Churn Bancário](http://137.131.255.43:5173/frontend/)
+- Acesse a aplicação  👉 [Previsão de Churn Bancário](http://137.131.255.43:5173/frontend/)
 
 
 ## Licença 

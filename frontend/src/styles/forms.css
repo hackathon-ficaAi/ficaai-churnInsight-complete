@@ -1,0 +1,66 @@
+label {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    display: block;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.selection-group {
+    display: flex;
+    gap: 10px;
+}
+
+.select-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+}
+
+.select-btn.active {
+    background: var(--primary);
+    color: #fff;
+}
+
+.actions {
+    display: flex;
+    align-items: center; /* Alinha verticalmente */
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Botões de Ação Compactos (Prever e Limpar) */
+.btn-compact {
+    padding: 0 20px; /* Menos enchimento lateral */
+    font-size: 14px; /* Letra menor */
+    height: 42px; /* Altura fixa para alinhar com o ícone */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ajuste específico para garantir que o botão "Prever" cresça */
+button[type="submit"].btn-compact {
+    flex: 2; /* Ocupa mais espaço */
+}
+
+button.secondary.btn-compact {
+    flex: 1; /* Ocupa menos espaço */
+}
