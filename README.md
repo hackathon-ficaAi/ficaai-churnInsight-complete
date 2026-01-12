@@ -201,7 +201,7 @@ Saída
 
 **7.Projeto em nuvem OCI - Oracle Cloud Infrastructure:**  ✅ implementado
 
-- Acesse a aplicação FrontEnd 👉 [Previsão de Churn Bancário](http://137.131.255.43:5173/frontend/)
+- Acesse a aplicação  👉 [Previsão de Churn Bancário](http://137.131.255.43:5173/frontend/)
 
 
 ## Licença 
