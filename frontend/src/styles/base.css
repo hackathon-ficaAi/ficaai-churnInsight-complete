@@ -20,10 +20,10 @@
     /* Design System */
     --primary: #6366f1;
     --primary-dark: #4f46e5;
-    
+
     /* Azul Profundo (Usado no final do degradê) */
-    --bg: #1e3a8a; 
-    
+    --bg: #1e3a8a;
+
     --text-dark: #1e293b;
     --text-muted: #475569;
     --border: #cbd5e1;
@@ -50,13 +50,15 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    position: relative; /* Necessário para organizar as camadas */
-    background: transparent; /* Removemos o fundo daqui para não dar conflito */
-    
+    position: relative;
+    /* Necessário para organizar as camadas */
+    background: transparent;
+    /* Removemos o fundo daqui para não dar conflito */
+
     /* Espaçamento do conteúdo */
-    padding-top: 60px; 
+    padding-top: 60px;
     padding-bottom: 40px;
-    
+
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     overflow-x: hidden;
 }
@@ -64,17 +66,19 @@ body {
 /* Criamos um "papel de parede" separado que nunca se mexe */
 body::before {
     content: "";
-    position: fixed; /* Fixa na tela, não rola com o scroll */
+    position: fixed;
+    /* Fixa na tela, não rola com o scroll */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    
+
     /* Degradê Vertical (Mais suave que o diagonal) */
     /* Vai de um azul quase branco (#f8fafc) até o azul do tema */
     background: linear-gradient(to bottom, #f8fafc, var(--bg));
-    
-    z-index: -1; /* Garante que fique ATRÁS de tudo */
+
+    z-index: -1;
+    /* Garante que fique ATRÁS de tudo */
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -103,9 +107,9 @@ a:hover {
     border-radius: 16px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
     margin-top: 20px;
-    
+
     /* Garante que o container fique SOBRE o fundo */
-    position: relative; 
+    position: relative;
     z-index: 1;
 }
 
@@ -352,8 +356,13 @@ input[type="checkbox"] {
    TABELA MOBILE – CARD UX
 ========================= */
 @media (max-width: 768px) {
-    table { border: none; }
-    thead { display: none; }
+    table {
+        border: none;
+    }
+
+    thead {
+        display: none;
+    }
 
     tbody {
         display: flex;
@@ -423,14 +432,34 @@ th[data-label="Risco"] {
 /* =========================
    BADGES DE RISCO
 ========================= */
-.risco-alto strong { background: #ffffff; color: #991b1b; }
-.risco-medio strong { background: #ffffff; color: #92400e; }
-.risco-baixo strong { background: #ffffff; color: #065f46; }
+.risco-alto strong {
+    background: #ffffff;
+    color: #991b1b;
+}
+
+.risco-medio strong {
+    background: #ffffff;
+    color: #92400e;
+}
+
+.risco-baixo strong {
+    background: #ffffff;
+    color: #065f46;
+}
 
 @media (max-width: 768px) {
-    tbody tr { padding: 14px; }
-    tbody td { padding: 4px 0; font-size: 13px; }
-    tbody td::before { font-size: 12px; }
+    tbody tr {
+        padding: 14px;
+    }
+
+    tbody td {
+        padding: 4px 0;
+        font-size: 13px;
+    }
+
+    tbody td::before {
+        font-size: 12px;
+    }
 }
 
 .previsao-text {
@@ -440,8 +469,15 @@ th[data-label="Risco"] {
     text-align: center;
 }
 
-.previsao-text strong { font-weight: 600; display: block; }
-.previsao-text span { font-size: 12px; color: var(--text-muted); }
+.previsao-text strong {
+    font-weight: 600;
+    display: block;
+}
+
+.previsao-text span {
+    font-size: 12px;
+    color: var(--text-muted);
+}
 
 @media (max-width: 768px) {
     tbody tr {
@@ -449,11 +485,29 @@ th[data-label="Risco"] {
         border-left: 5px solid var(--primary);
         padding-left: 14px;
     }
+
     tbody td[data-label="Cliente"] {
         font-size: 17px;
         font-weight: 700;
     }
-    .card-risco-alto { border-left: 6px solid #dc2626; }
-    .card-risco-medio { border-left: 6px solid #facc15; }
-    .card-risco-baixo { border-left: 6px solid #16a34a; }
+
+    .card-risco-alto {
+        border-left: 6px solid #dc2626;
+    }
+
+    .card-risco-medio {
+        border-left: 6px solid #facc15;
+    }
+
+    .card-risco-baixo {
+        border-left: 6px solid #16a34a;
+    }
+}
+
+.valor-monetario {
+    max-width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
 }

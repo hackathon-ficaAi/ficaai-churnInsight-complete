@@ -8,6 +8,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import plotly.express as px
+import requests
 import os
 
 st.set_page_config(
@@ -15,6 +16,8 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+API_URL = "http://137.131.255.43:8000"
 
 @st.cache_resource
 def load_model():
@@ -33,25 +36,77 @@ def load_data(uploaded_file=None):
     else:
         return pd.read_csv("https://raw.githubusercontent.com/hackathon-ficaAi/churnInsight/refs/heads/main/data/churn_teste.csv")
 
-# Sidebar - File Upload (no topo)
+@st.cache_data(ttl=60)
+def load_history_from_api(limit=1000):
+    try:
+        response = requests.get(f"{API_URL}/history", params={"limit": limit})
+        if response.status_code == 200:
+            data = response.json()
+            if data and "history" in data and len(data["history"]) > 0:
+                return pd.DataFrame(data["history"])
+        return None
+    except:
+        return None
+
+@st.cache_data(ttl=60)
+def get_stats():
+    try:
+        response = requests.get(f"{API_URL}/stats")
+        if response.status_code == 200:
+            return response.json()
+        return None
+    except:
+        return None
+
 st.sidebar.title("📁 Dados")
-uploaded_file = st.sidebar.file_uploader(
-    "Upload seu CSV (opcional)", 
-    type=['csv'],
-    help="Se não fizer upload, usaremos os dados padrão"
+
+data_source = st.sidebar.radio(
+    "Fonte de Dados",
+    ["CSV Padrão", "Upload Manual", "Histórico API"],
+    help="Escolha de onde carregar os dados"
 )
 
+uploaded_file = None
+use_history = False
+
+if data_source == "Upload Manual":
+    uploaded_file = st.sidebar.file_uploader(
+        "Envie seu CSV", 
+        type=['csv'],
+        help="Upload de arquivo CSV personalizado"
+    )
+elif data_source == "Histórico API":
+    use_history = True
+    st.sidebar.info("Usando dados do histórico de predições da API")
+
 model = load_model()
-df_raw = load_data(uploaded_file)
+
+if use_history:
+    df_raw = load_history_from_api()
+    if df_raw is None:
+        st.error("Não foi possível carregar o histórico da API. Verifique se o FastAPI está rodando.")
+        st.stop()
+else:
+    df_raw = load_data(uploaded_file)
 
 if df_raw is not None:
-    if model is not None and df_raw is not None:
+    df_raw.columns = df_raw.columns.str.lower()
+    
+    if 'id' in df_raw.columns and 'id_cliente' not in df_raw.columns:
+        df_raw['id_cliente'] = df_raw['id']
+    elif 'id_cliente' not in df_raw.columns:
+        df_raw['id_cliente'] = range(1, len(df_raw) + 1)
+    
+    if 'probabilidade' in df_raw.columns and 'probabilidade_churn' not in df_raw.columns:
+        df_raw['probabilidade_churn'] = df_raw['probabilidade']
+    if model is not None:
 
         try:
             features = model.feature_names_in_
         except:
             features = ["pais", "genero", "idade", "saldo", "num_produtos", "membro_ativo", "salario_estimado"]
 
+        st.sidebar.divider()
         st.sidebar.title("⚙️ Estratégia de Retenção")
         st.sidebar.markdown("Ajuste a sensibilidade do modelo:")
         
@@ -62,23 +117,33 @@ if df_raw is not None:
         probs = model.predict_proba(X_input)[:, 1]
         
         df_results = df_raw.copy()
-        df_results['probabilidade_churn'] = probs
+        
+        if 'probabilidade_churn' not in df_results.columns:
+            df_results['probabilidade_churn'] = probs
+        
+        if 'previsao' in df_results.columns and use_history:
+            df_results['Segmento'] = df_results['previsao'].apply(lambda x: 
+                '1. Alto Risco 🔴' if 'Alto' in str(x) else 
+                '2. Médio Risco 🟡' if 'Médio' in str(x) or 'Medio' in str(x) else 
+                '3. Baixo Risco 🟢'
+            )
+        else:
+            def classificar_risco(prob):
+                if prob >= corte_alto:
+                    return '1. Alto Risco 🔴'
+                elif prob >= corte_medio:
+                    return '2. Médio Risco 🟡'
+                else:
+                    return '3. Baixo Risco 🟢'
 
-        def classificar_risco(prob):
-            if prob >= corte_alto:
-                return '1. Alto Risco 🔴'
-            elif prob >= corte_medio:
-                return '2. Médio Risco 🟡'
-            else:
-                return '3. Baixo Risco 🟢'
+            df_results['Segmento'] = df_results['probabilidade_churn'].apply(classificar_risco)
 
-        df_results['Segmento'] = df_results['probabilidade_churn'].apply(classificar_risco)
-
+        st.sidebar.divider()
         paises_selecionados = st.sidebar.multiselect("Filtrar País", df_results['pais'].unique(), default=df_results['pais'].unique())
         df_view = df_results[df_results['pais'].isin(paises_selecionados)]
 
         st.sidebar.divider()
-        pagina = st.sidebar.radio("📄 Navegação", ["Monitoramento de Risco", "Perfil do Cliente"])
+        pagina = st.sidebar.radio("📄 Navegação", ["Monitoramento de Risco", "Perfil do Cliente", "Estatísticas API"])
 
         if pagina == "Monitoramento de Risco":
             
@@ -167,7 +232,7 @@ if df_raw is not None:
                 use_container_width=True
             )
 
-        else:
+        elif pagina == "Perfil do Cliente":
             
             st.title("🕵️ Perfil do Cliente em Risco")
             st.markdown("Comparativo: Quem são os clientes de **Alto Risco** vs. o **Resto da Base**?")
@@ -264,6 +329,66 @@ if df_raw is not None:
 
             else:
                 st.warning("Não há clientes no segmento 'Alto Risco' com o corte atual. Tente diminuir a barra de probabilidade.")
+
+        else:
+            st.title("📈 Estatísticas da API")
+            st.markdown("### Dados históricos das predições realizadas")
+
+            stats = get_stats()
+
+            if stats:
+                kpi1, kpi2, kpi3 = st.columns(3)
+
+                with kpi1:
+                    st.metric("Total Avaliados", f"{stats['total_avaliados']:,}")
+
+                with kpi2:
+                    st.metric("Total Churn", f"{stats['total_churn']:,}")
+
+                with kpi3:
+                    st.metric("Taxa de Churn", f"{stats['taxa_churn']:.2%}")
+
+                st.divider()
+
+                col1, col2 = st.columns(2)
+
+                with col1:
+                    st.subheader("Distribuição de Risco")
+                    risk_data = pd.DataFrame({
+                        'Categoria': ['Alto Risco', 'Médio Risco', 'Baixo Risco'],
+                        'Quantidade': [stats['total_alto_risco'], stats['total_medio_risco'], stats['total_baixo_risco']]
+                    })
+
+                    fig_pie = px.pie(
+                        risk_data,
+                        values='Quantidade',
+                        names='Categoria',
+                        color='Categoria',
+                        color_discrete_map={
+                            'Alto Risco': '#FF4B4B',
+                            'Médio Risco': '#FFA500',
+                            'Baixo Risco': '#00CC96'
+                        }
+                    )
+                    st.plotly_chart(fig_pie, use_container_width=True)
+
+                with col2:
+                    st.subheader("Resumo Numérico")
+                    summary_df = pd.DataFrame({
+                        'Métrica': ['Total Avaliados', 'Alto Risco', 'Médio Risco', 'Baixo Risco', 'Taxa de Churn'],
+                        'Valor': [
+                            stats['total_avaliados'],
+                            stats['total_alto_risco'],
+                            stats['total_medio_risco'],
+                            stats['total_baixo_risco'],
+                            f"{stats['taxa_churn']:.2%}"
+                        ]
+                    })
+                    st.dataframe(summary_df, use_container_width=True, hide_index=True)
+
+            else:
+                st.warning("Não foi possível carregar as estatísticas da API. Verifique se o FastAPI está rodando.")
+
     else:
         st.info("Aguardando carregamento do modelo ou dados...")
 else:
