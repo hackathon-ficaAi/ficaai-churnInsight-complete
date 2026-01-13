@@ -18,29 +18,31 @@ export default function Historico({ voltarAoFormulario }) {
         setLoading(false);
       }
     }
-
     carregar();
   }, []);
 
   return (
-    /* --- ALTERAÇÃO AQUI: style={{ maxWidth: "900px" }} --- */
-    /* Isso força o quadrado branco a ficar largo o suficiente para a tabela */
     <div className="container" style={{ maxWidth: "1100px" }}>
       
-      {/* Logo e título */}
+      {/* Cabeçalho Ajustado com Logo Nova e Estilo Arredondado */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "12px",
-          marginBottom: "20px",
-          justifyContent: "center" /* Centraliza logo e título */
+          gap: "16px",
+          marginBottom: "24px",
+          justifyContent: "center"
         }}
       >
         <img
           src="./FicaAI_logo.png"
-          alt="FicaAI_Logo"
-          style={{ height: "50px" }}
+          alt="FicaAI Logo"
+          style={{ 
+            height: "60px", 
+            width: "60px",
+            borderRadius: "16px", // Mantendo identidade visual da Home
+            boxShadow: "0 4px 10px rgba(0,0,0,0.15)"
+          }}
         />
         <h1 className="historico-title" style={{ margin: 0 }}>
           Histórico de Análises
