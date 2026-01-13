@@ -8,7 +8,6 @@
 @import "./styles/mobile.css";
 
 :root {
-  /* --- PALETA NOVA (Baseada na Logo) --- */
   --bg-dark: #05050A;       /* Fundo Navy Profundo */
   --card-bg: #0f121a;       /* Um pouco mais claro que o fundo */
   

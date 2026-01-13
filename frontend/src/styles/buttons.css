@@ -78,7 +78,6 @@ button.secondary:hover {
   color: #000000;
 }
 
-/* AQUI ESTÁ A MUDANÇA DO TEXTO PARA PRETO */
 .btn-neutral.active {
     background-color: var(--primary-neon); /* Fundo Neon */
     color: #000000;  /* Texto PRETO para contraste */
