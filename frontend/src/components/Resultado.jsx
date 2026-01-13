@@ -1,39 +1,33 @@
+import React from "react";
+import { getNivelRisco } from "../utils/riscoUtils";
+
 export default function Resultado({ resultado }) {
   if (!resultado) return null;
 
-  const previsaoTexto = resultado.previsao?.toLowerCase() || "";
+  // 1. Pega a probabilidade
+  const prob = parseFloat(resultado.probabilidade);
+  
+  // 2. Usa a nossa função utilitária para pegar o texto PADRONIZADO (Risco)
+  // Isso garante que se na tabela é "Alto Risco", aqui também será.
+  const risco = getNivelRisco(prob);
+  
+  const porcentagem = (prob * 100).toFixed(1);
 
-  const isAltoRisco =
-    previsaoTexto.includes("alto") ||
-    previsaoTexto.includes("churn") ||
-    previsaoTexto.includes("sair");
+  // 3. Define cores baseadas na classe que voltou do utils
+  let corBg, corBorda, corTitulo, mensagem;
 
-  const isMedioRisco = previsaoTexto.includes("médio");
-
-  // Formata a porcentagem
-  const porcentagem = (resultado.probabilidade * 100).toFixed(1);
-
-  let mensagem;
-  let classe;
-  let corBg;
-  let corBorda;
-  let corTitulo;
-
-  if (isAltoRisco) {
+  if (risco.classe === "risco-alto") {
     mensagem = "⚠️ Cliente com Alto risco de deixar o banco.";
-    classe = "danger";
     corBg = "#ffebee";
     corBorda = "#ef9a9a";
     corTitulo = "#c62828";
-  } else if (isMedioRisco) {
+  } else if (risco.classe === "risco-medio") {
     mensagem = "⚠️ Cliente com risco Moderado de deixar o banco.";
-    classe = "warning";
-    corBg = "#fff8e1";
-    corBorda = "#ffe082";
-    corTitulo = "#f9a825";
+    corBg = "#fffbeb"; // Amarelo claro
+    corBorda = "#f59e0b";
+    corTitulo = "#92400e";
   } else {
     mensagem = "✅ Cliente com tendência a permanecer fiel.";
-    classe = "success";
     corBg = "#e8f5e9";
     corBorda = "#a5d6a7";
     corTitulo = "#2e7d32";
@@ -44,7 +38,7 @@ export default function Resultado({ resultado }) {
       <h3>Resultado da Análise</h3>
 
       <div
-        className={`card-resultado ${classe}`}
+        className={`card-resultado ${risco.classe}`}
         style={{
           padding: "20px",
           borderRadius: "8px",
@@ -54,15 +48,19 @@ export default function Resultado({ resultado }) {
           marginTop: "20px",
         }}
       >
-        <h2 style={{ color: corTitulo, margin: "10px 0" }}>
-          {resultado.previsao}
+        {/* AQUI ESTAVA O ERRO: Trocamos resultado.previsao por risco.label */}
+        <h2 style={{ color: corTitulo, margin: "10px 0", display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+          <span>{risco.icon}</span> 
+          {risco.label} 
         </h2>
 
         <p style={{ fontSize: "1.2rem" }}>
           Probabilidade de Churn: <strong>{porcentagem}%</strong>
         </p>
 
-        <p style={{ fontSize: "0.9rem", color: "#555" }}>{mensagem}</p>
+        <p style={{ fontSize: "0.9rem", color: "#555", marginTop: "10px" }}>
+            {mensagem}
+        </p>
       </div>
     </div>
   );
