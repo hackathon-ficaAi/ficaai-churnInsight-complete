@@ -23,7 +23,10 @@ export default function Historico({ voltarAoFormulario }) {
   }, []);
 
   return (
-    <div className="container container-wide">
+    /* --- ALTERAÇÃO AQUI: style={{ maxWidth: "900px" }} --- */
+    /* Isso força o quadrado branco a ficar largo o suficiente para a tabela */
+    <div className="container" style={{ maxWidth: "1100px" }}>
+      
       {/* Logo e título */}
       <div
         style={{
@@ -31,6 +34,7 @@ export default function Historico({ voltarAoFormulario }) {
           alignItems: "center",
           gap: "12px",
           marginBottom: "20px",
+          justifyContent: "center" /* Centraliza logo e título */
         }}
       >
         <img

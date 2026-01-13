@@ -1,5 +1,14 @@
-table {
+.table-container {
     width: 100%;
+    /* Garante que o container flex permita centralização */
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+table {
+    width: 96%;
+    margin: 0 auto;
     border-collapse: collapse;
     margin-top: 24px;
 }
@@ -30,6 +39,20 @@ td {
     text-align: center;
     vertical-align: middle;
     border-bottom: 1px solid #e5e7eb;
+}
+
+.previsao-text {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;     /* Centraliza Horizontalmente */
+    justify-content: center !important; /* Centraliza Verticalmente */
+    text-align: center !important;
+    width: 100%;
+}
+
+.data-hora {
+    white-space: nowrap !important; /* Impede quebra de linha */
+    width: 1%; /* Faz a coluna ocupar só o espaço necessário */
 }
 
 /* Linhas alternadas */

@@ -16,13 +16,17 @@ function App() {
     <div className="container-wide" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       
       {/* --- MENU DE NAVEGAÇÃO SUPERIOR --- */}
-      {/* AJUSTE AQUI: Largura igual ao container branco (95% e max 500px) */}
       <div className="actions" style={{ 
           marginBottom: "20px", 
           display: "flex", 
           gap: "10px", 
-          width: "95%", 
-          maxWidth: "500px" 
+          width: "95%",  
+
+          /* Se for histórico = 900px (Largo), Se for form = 500px (Compacto) */
+          maxWidth: pagina === "historico" ? "1100px" : "500px",
+          
+          /* Adiciona uma animação suave ao mudar de tamanho */
+          transition: "max-width 0.3s ease"
         }}>
         
         {/* Botão Previsão (Com flex: 1 para esticar) */}
