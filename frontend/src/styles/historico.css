@@ -145,6 +145,47 @@ tbody tr:hover {
   color: var(--text-muted); /* Cinza azulado para leitura */
 }
 
+.history-table th {
+  cursor: pointer;
+  user-select: none; /* Evita selecionar o texto ao clicar rápido */
+  position: relative;
+  transition: color 0.2s;
+}
+
+.history-table th:hover {
+  color: #FFFFFF; /* Fica branco puro ao passar o mouse */
+  text-shadow: 0 0 8px var(--primary-neon);
+}
+
+/* A setinha (usando CSS puro para não precisar de ícones) */
+.sort-arrow {
+  display: inline-block;
+  margin-left: 8px;
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid var(--primary-neon); /* Seta para cima (cor neon) */
+  opacity: 0.3; /* Meio apagada quando inativa */
+  transition: all 0.2s;
+  vertical-align: middle;
+  margin-bottom: 2px;
+}
+
+/* Quando está ordenado Crescente (Ascending) */
+.history-table th.asc .sort-arrow {
+  opacity: 1;
+  transform: rotate(0deg); /* Aponta para cima */
+  border-bottom-color: #FFFFFF; /* Fica branca para destacar */
+}
+
+/* Quando está ordenado Decrescente (Descending) */
+.history-table th.desc .sort-arrow {
+  opacity: 1;
+  transform: rotate(180deg); /* Vira para baixo */
+  border-bottom-color: #FFFFFF;
+}
+
 @media (max-width: 768px) {
   
   /* Esconde o cabeçalho da tabela (Data, País, etc) */

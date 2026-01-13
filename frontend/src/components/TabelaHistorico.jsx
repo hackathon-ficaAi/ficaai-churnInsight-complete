@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { getNivelRisco } from "../utils/riscoUtils";
+import "../styles/historico.css"; 
 
 export default function TabelaHistorico({ listaHistorico }) {
   const [paginaAtual, setPaginaAtual] = useState(1);
+  // Estado para controlar a ordenação
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+  
   const ITENS_POR_PAGINA = 10;
+
   const traduzirPais = (paisOriginal) => {
     if (!paisOriginal) return "-";
     const chave = paisOriginal.trim().toLowerCase();
@@ -37,11 +42,6 @@ export default function TabelaHistorico({ listaHistorico }) {
     });
   };
 
-  if (!listaHistorico || !listaHistorico.length) {
-    return <p className="no-data">Nenhum histórico disponível.</p>;
-  }
-
-  // Lógica de formatação de dinheiro (Mantida a sua versão com trilhões)
   const MAX_EXIBICAO_TRILHOES = 10;
   const formatMoney = (value) => {
     if (value === null || value === undefined || isNaN(value)) return "-";
@@ -64,37 +64,117 @@ export default function TabelaHistorico({ listaHistorico }) {
     }).format(value);
   };
 
-  const historicoOrdenado = [...listaHistorico].sort((a, b) => {
-    const dataA = new Date(a.dataAnalise || 0);
-    const dataB = new Date(b.dataAnalise || 0);
-    return dataB - dataA; // B - A = Decrescente
-  });
+  // --- LÓGICA DE ORDENAÇÃO ---
+  const requestSort = (key) => {
+    let direction = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
 
-  // Lógica de Paginação
+  const getClassNamesFor = (name) => {
+    if (!sortConfig.key) return;
+    return sortConfig.key === name ? sortConfig.direction : undefined;
+  };
+
+  // Cria a lista ordenada dinamicamente
+  const historicoOrdenado = useMemo(() => {
+    if (!listaHistorico) return [];
+    let items = [...listaHistorico];
+
+    if (sortConfig.key !== null) {
+      items.sort((a, b) => {
+        let aValue = a[sortConfig.key];
+        let bValue = b[sortConfig.key];
+
+        // Tratamentos Especiais
+        if (sortConfig.key === 'dataAnalise') {
+            aValue = new Date(aValue || 0).getTime();
+            bValue = new Date(bValue || 0).getTime();
+        }
+        else if (sortConfig.key === 'pais') {
+            aValue = traduzirPais(aValue).toLowerCase();
+            bValue = traduzirPais(bValue).toLowerCase();
+        }
+        else if (sortConfig.key === 'membroAtivo') {
+             // Garante que booleanos ou 0/1 sejam comparáveis
+             aValue = aValue ? 1 : 0;
+             bValue = bValue ? 1 : 0;
+        }
+
+        if (aValue < bValue) {
+          return sortConfig.direction === 'asc' ? -1 : 1;
+        }
+        if (aValue > bValue) {
+          return sortConfig.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+      });
+    } else {
+      // Ordenação Padrão (Sem clique): Data Decrescente
+      items.sort((a, b) => {
+        const dataA = new Date(a.dataAnalise || 0);
+        const dataB = new Date(b.dataAnalise || 0);
+        return dataB - dataA;
+      });
+    }
+    return items;
+  }, [listaHistorico, sortConfig]);
+
+  // --- LÓGICA DE PAGINAÇÃO ---
   const indexUltimoItem = paginaAtual * ITENS_POR_PAGINA;
   const indexPrimeiroItem = indexUltimoItem - ITENS_POR_PAGINA;
   const itensAtuais = historicoOrdenado.slice(indexPrimeiroItem, indexUltimoItem);
   const totalPaginas = Math.ceil(historicoOrdenado.length / ITENS_POR_PAGINA);
 
-  // Funções de navegação
   const irParaPagina = (numero) => setPaginaAtual(numero);
   const proximaPagina = () => setPaginaAtual((prev) => Math.min(prev + 1, totalPaginas));
   const paginaAnterior = () => setPaginaAtual((prev) => Math.max(prev - 1, 1));
 
+  if (!listaHistorico || !listaHistorico.length) {
+    return <p className="no-data">Nenhum histórico disponível.</p>;
+  }
+
   return (
     <div className="table-wrapper">
       <div className="table-container">
-        <table>
+        <table className="history-table">
           <thead>
             <tr>
-              <th>Data/Hora</th>
-              <th>Cliente (País/Gênero)</th>
-              <th>Idade</th>
-              <th>Saldo</th>
-              <th>Prod.</th>
-              <th>Ativo?</th>
-              <th>Previsão de Churn</th>
-              <th>Risco</th>
+              
+              <th onClick={() => requestSort('dataAnalise')} className={getClassNamesFor('dataAnalise')}>
+                Data/Hora <span className="sort-arrow"></span>
+              </th>
+              
+              <th onClick={() => requestSort('pais')} className={getClassNamesFor('pais')}>
+                Cliente (País/Gênero) <span className="sort-arrow"></span>
+              </th>
+              
+              <th onClick={() => requestSort('idade')} className={getClassNamesFor('idade')}>
+                Idade <span className="sort-arrow"></span>
+              </th>
+              
+              <th onClick={() => requestSort('saldo')} className={getClassNamesFor('saldo')}>
+                Saldo <span className="sort-arrow"></span>
+              </th>
+              
+              <th onClick={() => requestSort('numProdutos')} className={getClassNamesFor('numProdutos')}>
+                Prod. <span className="sort-arrow"></span>
+              </th>
+              
+              <th onClick={() => requestSort('membroAtivo')} className={getClassNamesFor('membroAtivo')}>
+                Ativo? <span className="sort-arrow"></span>
+              </th>
+              
+              {/* Ambos 'Previsão' e 'Risco' ordenam pela probabilidade matemática */}
+              <th onClick={() => requestSort('probabilidade')} className={getClassNamesFor('probabilidade')}>
+                Previsão de Churn <span className="sort-arrow"></span>
+              </th>
+              
+              <th onClick={() => requestSort('probabilidade')} className={getClassNamesFor('probabilidade')}>
+                Risco <span className="sort-arrow"></span>
+              </th>
             </tr>
           </thead>
           <tbody>

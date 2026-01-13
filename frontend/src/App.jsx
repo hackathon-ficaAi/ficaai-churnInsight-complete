@@ -2,7 +2,6 @@ import { useState } from "react";
 import PredictForm from "./components/PredictForm";
 import Historico from "./components/Historico";
 import "./styles/buttons.css"; 
-// Importamos o forms.css para garantir que o layout base (container) seja respeitado se necessário
 import "./styles/forms.css"; 
 
 function App() {

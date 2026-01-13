@@ -105,8 +105,6 @@ export default function PredictForm(onVerHistorico) {
         membro_ativo: formData.membro_ativo, // Envia true/false
         saldo: Number(formData.saldo),
         salario_estimado: Number(formData.salario_estimado),
-
-        // Campos removidos (credit_score, tenure, cartao) NÃO são enviados.
       };
 
       const response = await predictChurn(payload);

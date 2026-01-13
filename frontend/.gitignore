@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Ignora o banco de dados de histórico (para não sobrescrever a produção)
+data-science/data/historico.csv
