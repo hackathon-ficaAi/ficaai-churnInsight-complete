@@ -39,8 +39,6 @@ input, select {
   appearance: none;
 }
 
-/* --- CORREÇÃO CRÍTICA DO DROPDOWN --- */
-/* Força as opções a serem escuras para não sumir o texto */
 select option {
     background-color: #151e32; /* var(--card-bg) - Fundo escuro */
     color: #F0F8FF;            /* var(--text-main) - Texto claro */
