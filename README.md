@@ -228,6 +228,8 @@ Esses resultados mostram que o modelo consegue identificar a maioria dos cliente
 
 **7.Dashboard (Streamlit):** ✅ implementado
 
+- Acesse o Dashboard👉 [Dashboard](https://ficaai.streamlit.app/)
+
 **8.Projeto em nuvem OCI - Oracle Cloud Infrastructure:**  ✅ implementado
 
 - Acesse a aplicação  👉 [Previsão de Churn Bancário](http://137.131.255.43:5173/frontend/)
