@@ -143,14 +143,7 @@ export default function PredictForm(onVerHistorico) {
             boxShadow: "0 4px 10px rgba(0,0,0,0.15)" // Uma sombrinha leve para destacar
         }}
         />
-        <h1 style={{ 
-        textAlign: "center", 
-        color: "var(--text-dark)",
-        fontSize: "24px",
-        margin: 0 
-    }}>
-        Previsão de Churn <br /> Bancário
-    </h1>
+        <h1 style={{ margin: 0 }}>Previsão de Churn Bancário</h1>
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -201,6 +194,7 @@ export default function PredictForm(onVerHistorico) {
           placeholder="Ex: 35"
           min="18"
           required
+          max="120"
         />
 
         {/* --- DADOS FINANCEIROS --- */}

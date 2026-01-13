@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { getNivelRisco } from "../utils/riscoUtils";
 
 export default function TabelaHistorico({ listaHistorico }) {
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const ITENS_POR_PAGINA = 10;
   const traduzirPais = (paisOriginal) => {
     if (!paisOriginal) return "-";
     const chave = paisOriginal.trim().toLowerCase();
@@ -61,69 +64,98 @@ export default function TabelaHistorico({ listaHistorico }) {
     }).format(value);
   };
 
-  // --- MUDANÇA AQUI: Ordenação por Data (Mais recente primeiro) ---
   const historicoOrdenado = [...listaHistorico].sort((a, b) => {
     const dataA = new Date(a.dataAnalise || 0);
     const dataB = new Date(b.dataAnalise || 0);
     return dataB - dataA; // B - A = Decrescente
   });
 
+  // Lógica de Paginação
+  const indexUltimoItem = paginaAtual * ITENS_POR_PAGINA;
+  const indexPrimeiroItem = indexUltimoItem - ITENS_POR_PAGINA;
+  const itensAtuais = historicoOrdenado.slice(indexPrimeiroItem, indexUltimoItem);
+  const totalPaginas = Math.ceil(historicoOrdenado.length / ITENS_POR_PAGINA);
+
+  // Funções de navegação
+  const irParaPagina = (numero) => setPaginaAtual(numero);
+  const proximaPagina = () => setPaginaAtual((prev) => Math.min(prev + 1, totalPaginas));
+  const paginaAnterior = () => setPaginaAtual((prev) => Math.max(prev - 1, 1));
+
   return (
-    <div className="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Data/Hora</th>
-            <th>Cliente (País/Gênero)</th>
-            <th>Idade</th>
-            <th>Saldo</th>
-            <th>Prod.</th>
-            <th>Ativo?</th>
-            <th>Previsão de Churn</th>
-            <th>Risco</th>
-          </tr>
-        </thead>
-        <tbody>
-          {historicoOrdenado.map((item) => {
-            const risco = getNivelRisco(item.probabilidade);
+    <div className="table-wrapper">
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Data/Hora</th>
+              <th>Cliente (País/Gênero)</th>
+              <th>Idade</th>
+              <th>Saldo</th>
+              <th>Prod.</th>
+              <th>Ativo?</th>
+              <th>Previsão de Churn</th>
+              <th>Risco</th>
+            </tr>
+          </thead>
+          <tbody>
+            {itensAtuais.map((item) => {
+              const risco = getNivelRisco(item.probabilidade);
+              return (
+                <tr key={item.id} className={`card-${risco.classe}`}>
+                  <td data-label="Data/Hora" className="data-hora">
+                    {formatarDataBR(item.dataAnalise)}
+                  </td>
+                  <td data-label="Cliente">
+                    {traduzirPais(item.pais)}{" "}
+                    <small>({traduzirGenero(item.genero)})</small>
+                  </td>
+                  <td data-label="Idade">{item.idade}</td>
+                  <td data-label="Saldo" className="valor-monetario" title={item.saldo?.toLocaleString("pt-BR")}>
+                    {formatMoney(item.saldo)}
+                  </td>
+                  <td data-label="Produtos">{item.numProdutos}</td>
+                  <td data-label="Ativo">
+                    <span style={{ color: item.membroAtivo ? "green" : "gray", fontWeight: "bold" }}>
+                      {item.membroAtivo ? "Sim" : "Não"}
+                    </span>
+                  </td>
+                  <td data-label="Previsão" className={`previsao-text ${risco.classe}`}>
+                    <strong>{risco.icon} {risco.label}</strong>
+                  </td>
+                  <td data-label="Risco" className={risco.classe}>
+                    <strong>{(item.probabilidade * 100).toFixed(1)}%</strong>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
 
-            return (
-              <tr key={item.id} className={`card-${risco.classe}`}>
-                <td data-label="Data/Hora" className="data-hora">
-                  {formatarDataBR(item.dataAnalise)}
-                </td>
+      {/* --- RODAPÉ DE PAGINAÇÃO --- */}
+      {totalPaginas > 1 && (
+        <div className="paginacao-container">
+          <button 
+            onClick={paginaAnterior} 
+            disabled={paginaAtual === 1}
+            className="btn-paginacao"
+          >
+            Anterior
+          </button>
+          
+          <span className="info-paginacao">
+            Página <strong>{paginaAtual}</strong> de <strong>{totalPaginas}</strong>
+          </span>
 
-                <td data-label="Cliente">
-                  {traduzirPais(item.pais)}{" "}
-                  <small>({traduzirGenero(item.genero)})</small>
-                </td>
-
-                <td data-label="Idade">{item.idade}</td>
-
-                <td data-label="Saldo" className="valor-monetario" title={item.saldo?.toLocaleString("pt-BR")}>
-                  {formatMoney(item.saldo)}
-                </td>
-
-                <td data-label="Produtos">{item.numProdutos}</td>
-
-                <td data-label="Ativo">
-                  <span style={{ color: item.membroAtivo ? "green" : "gray", fontWeight: "bold" }}>
-                    {item.membroAtivo ? "Sim" : "Não"}
-                  </span>
-                </td>
-
-                <td data-label="Previsão" className={`previsao-text ${risco.classe}`}>
-                  <strong>{risco.icon} {risco.label}</strong>
-                </td>
-
-                <td data-label="Risco" className={risco.classe}>
-                  <strong>{(item.probabilidade * 100).toFixed(1)}%</strong>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+          <button 
+            onClick={proximaPagina} 
+            disabled={paginaAtual === totalPaginas}
+            className="btn-paginacao"
+          >
+            Próxima
+          </button>
+        </div>
+      )}
     </div>
   );
 }
