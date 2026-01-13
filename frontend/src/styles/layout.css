@@ -1,33 +1,51 @@
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-width: 320px;
-    min-height: 100vh;
-    padding-top: 60px;
-    padding-bottom: 40px;
-    background: linear-gradient(135deg, #eef2ff, var(--bg));
-    overflow-x: hidden;
+/* Layout Principal */
+.container-wide {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+  background-color: var(--bg-dark); /* Garante que o fundo atrás do card seja escuro */
 }
 
 .container {
-    background: #fff;
-    width: 95%;
-    max-width: 500px;
-    padding: 32px;
-    border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-    margin-top: 20px;
+  background-color: var(--card-bg); /* AQUI: Muda de branco para azul escuro */
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra escura forte */
+  padding: 2.5rem;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(0, 207, 255, 0.1); /* Borda sutil Neon */
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+  backdrop-filter: blur(10px); /* Efeito vidro sutil se o fundo tiver textura */
 }
 
-.container-wide {
-    max-width: 960px;
-    padding: 32px;
+/* Header do formulário (Logo e Título) */
+.form-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 24px;
-    font-size: 30px;
+.logo-img {
+  width: 90px;
+  height: auto;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 10px rgba(0, 207, 255, 0.3)); /* Brilho na logo */
+}
+
+h1, h2 {
+  color: var(--text-main);
+  font-weight: 700;
+  margin: 0;
+}
+
+h3 {
+  color: var(--text-muted);
+  font-weight: 500;
 }

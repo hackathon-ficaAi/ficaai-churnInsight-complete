@@ -1,0 +1,119 @@
+/* Container principal do resultado */
+.resultado-container {
+  width: 100%;
+  margin: 30px auto 0;
+  text-align: center;
+}
+
+.resultado-container h3 {
+  color: var(--text-muted);
+  margin-bottom: 15px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* O Card em si - Efeito Glassmorphism */
+.card-resultado {
+  background: rgba(255, 255, 255, 0.03); /* Quase transparente */
+  border-radius: 16px;
+  padding: 30px;
+  position: relative;
+  backdrop-filter: blur(10px); /* Efeito vidro */
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.card-resultado:hover {
+  transform: translateY(-2px);
+}
+
+/* --- VARIAÇÕES DE RISCO (Cores Neon) --- */
+
+/* ALTO RISCO (Vermelho Neon) */
+.card-resultado.risco-alto {
+  border-color: #ff4d4d;
+  box-shadow: 0 0 25px rgba(255, 77, 77, 0.25), inset 0 0 10px rgba(255, 77, 77, 0.1);
+}
+.card-resultado.risco-alto .titulo-resultado,
+.card-resultado.risco-alto .valor-prob {
+  color: #ff4d4d;
+  text-shadow: 0 0 8px rgba(255, 77, 77, 0.4);
+}
+
+/* MÉDIO RISCO (Amarelo Neon) */
+.card-resultado.risco-medio {
+  border-color: #ffca28;
+  box-shadow: 0 0 25px rgba(255, 202, 40, 0.2), inset 0 0 10px rgba(255, 202, 40, 0.1);
+}
+.card-resultado.risco-medio .titulo-resultado,
+.card-resultado.risco-medio .valor-prob {
+  color: #ffca28;
+  text-shadow: 0 0 8px rgba(255, 202, 40, 0.4);
+}
+
+/* BAIXO RISCO (Azul Neon da Marca) */
+.card-resultado.risco-baixo {
+  border-color: var(--primary-neon); /* #00CFFF */
+  box-shadow: 0 0 25px rgba(0, 207, 255, 0.25), inset 0 0 10px rgba(0, 207, 255, 0.1);
+}
+.card-resultado.risco-baixo .titulo-resultado,
+.card-resultado.risco-baixo .valor-prob {
+  color: var(--primary-neon);
+  text-shadow: 0 0 8px rgba(0, 207, 255, 0.4);
+}
+
+/* Elementos Internos */
+.titulo-resultado {
+  margin: 0 0 25px 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.icone-risco {
+    font-size: 2rem;
+}
+
+.probabilidade-box {
+  background: rgba(0, 0, 0, 0.3); /* Fundo mais escuro para destaque */
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.label-prob {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.valor-prob {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.mensagem-analise {
+  color: var(--text-main);
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 500;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

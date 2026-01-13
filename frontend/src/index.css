@@ -6,3 +6,45 @@
 @import "./styles/previsao.css";
 @import "./styles/historico.css";
 @import "./styles/mobile.css";
+
+:root {
+  /* --- PALETA NOVA (Baseada na Logo) --- */
+  --bg-dark: #05050A;       /* Fundo Navy Profundo */
+  --card-bg: #0f121a;       /* Um pouco mais claro que o fundo */
+  
+  --primary-neon: #64C8FF;  /* O AZUL DA LOGO (Texto/Ícones) */
+  --highlight: #B4E6FF;     /* Azul Quase Branco (Glow) */
+  --secondary-blue: #3faecf;/* Tom intermediário */
+  
+  --text-main: #FFFFFF;
+  --text-muted: #FFFFFFAA;    /* Branco com transparência para labels */
+  
+  --input-bg: rgba(100, 200, 255, 0.03); 
+  
+  --font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background-color: var(--bg-dark) !important; /* Força o fundo escuro */
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Scrollbar Bonita para o tema escuro */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark); 
+}
+::-webkit-scrollbar-thumb {
+  background: #2c3e50; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-blue); 
+}

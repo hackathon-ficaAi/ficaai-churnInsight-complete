@@ -1,62 +1,109 @@
-button {
-    border-radius: 12px;
-    border: none;
-    padding: 14px;
-    font-size: 15px;
-    font-weight: 600;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: white;
-    cursor: pointer;
-    width: 100%;
-}
-
-button.secondary {
-    background: #e5e7eb;
-    color: #374151;
-}
-
+/* Área de botões principais (Prever / Limpar) */
 .actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 24px;
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
 }
 
-/* Botão do Dashboard (📊) */
+/* Botão Primário */
+button {
+  background: linear-gradient(135deg, var(--primary-neon), var(--secondary-blue));
+  color: #000000; /* Texto preto para contraste máximo */
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 8px 20px rgba(0, 207, 255, 0.3);
+  flex: 1;
+}
+
+button:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(58, 209, 255, 0.5);
+}
+
+button:disabled {
+  background: #2c3e50;
+  color: #7f8c8d;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Botão Secundário (Outline) */
+button.secondary {
+  background: transparent;
+  color: var(--primary-neon);
+  border: 2px solid rgba(0, 207, 255, 0.3);
+  box-shadow: none;
+}
+
+button.secondary:hover {
+  border-color: var(--primary-neon);
+  background-color: rgba(0, 207, 255, 0.05);
+  box-shadow: 0 0 15px rgba(0, 207, 255, 0.2);
+  color: var(--ice-blue); /* Texto fica quase branco no hover */
+}
+
+/* --- TABS (MENU SUPERIOR) --- */
+.tabs-container {
+    display: flex;
+    background: var(--card-bg);
+    padding: 5px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-neutral {
+  flex: 1;
+  background-color: var(--secondary-blue); 
+  color: #000000; 
+  
+  border: none;
+  box-shadow: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  opacity: 0.7; 
+}
+
+.btn-neutral:hover {
+  background-color: var(--primary-neon); /* Fica igual ao ativo ao passar o mouse */
+  opacity: 1;
+  color: #000000;
+}
+
+/* AQUI ESTÁ A MUDANÇA DO TEXTO PARA PRETO */
+.btn-neutral.active {
+    background-color: var(--primary-neon); /* Fundo Neon */
+    color: #000000;  /* Texto PRETO para contraste */
+    font-weight: 800; /* Mais negrito */
+    box-shadow: 0 2px 15px rgba(0, 207, 255, 0.4);
+}
+
+/* Botão Dashboard */
 .btn-dashboard {
-    text-decoration: none; /* Remove sublinhado do link */
-    background-color: #f1f5f9; /* Fundo cinza claro */
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 0 12px; /* Largura do botão */
-    font-size: 20px; /* Tamanho do emoji */
-    
-    /* Centralização e Tamanho */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 48px; /* Altura fixa igual aos outros botões */
-    transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(176, 196, 222, 0.2);
+  border-radius: 12px;
+  font-size: 1.5rem;
+  width: 50px;
+  height: auto;
+  transition: 0.2s;
+  text-decoration: none;
+  margin-left: 10px;
 }
-
 .btn-dashboard:hover {
-    background-color: #e2e8f0;
-    transform: translateY(-2px); /* Efeito de subidinha */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-button.btn-neutral {
-    /* O !important aqui é vital para remover o linear-gradient roxo padrão */
-    background: #f1f5f9 !important; 
-    border: 1px solid #cbd5e1 !important;
-    color: #1e293b !important; /* Força o texto a ficar escuro */
-    
-    /* Remove sombras ou brilhos do botão roxo original */
-    box-shadow: none !important; 
-    transition: all 0.2s ease;
-}
-
-button.btn-neutral:hover {
-    background: #e2e8f0 !important;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+  background: rgba(0, 207, 255, 0.1);
+  border-color: var(--primary-neon);
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 207, 255, 0.3);
 }

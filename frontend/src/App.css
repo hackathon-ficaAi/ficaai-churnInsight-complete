@@ -1,4 +1,41 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+:root {
+  /* --- PALETA NOVA (Baseada na Logo) --- */
+  --bg-dark: #0A0F1C;       /* Fundo Principal */
+  --card-bg: #151e32;       /* Fundo dos Cards (Um pouco mais claro) */
+  
+  --primary-neon: #00CFFF;  /* Ação Principal / Destaques */
+  --secondary-blue: #3AD1FF;/* Hover / Ícones */
+  --ice-blue: #A7EFFF;      /* Detalhes Sutis */
+  
+  --text-main: #F0F8FF;     /* Branco Suave */
+  --text-muted: #B0C4DE;    /* Azul Acinzentado (Labels) */
+  
+  --input-bg: rgba(255, 255, 255, 0.05); /* Fundo de inputs translúcido */
+  
+  --font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background-color: var(--bg-dark) !important; /* Força o fundo escuro */
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Scrollbar Bonita para o tema escuro */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark); 
+}
+::-webkit-scrollbar-thumb {
+  background: #2c3e50; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-blue); 
 }

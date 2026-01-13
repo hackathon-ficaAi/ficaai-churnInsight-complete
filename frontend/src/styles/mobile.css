@@ -1,24 +1,69 @@
 @media (max-width: 768px) {
-    body {
-        display: block;
-        padding-top: 80px;
-    }
+  /* --- LAYOUT GERAL DO HISTÓRICO (Estilo Card Branco) --- */
 
-    table {
-        border: none;
-    }
+  /* Esconde o cabeçalho da tabela */
+  .history-table thead {
+    display: none;
+  }
 
-    thead {
-        display: none;
-    }
+  /* Transforma a tabela em blocos */
+  .history-table, .history-table tbody {
+    display: block;
+    width: 100%;
+  }
 
-    tbody tr {
-        background: #fff;
-        border-radius: 16px;
-        padding: 16px;
-    }
+  /* O CONTAINER DO CARD (A antiga linha <tr>) */
+  .history-table tr {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff; /* Fundo BRANCO como na foto */
+    margin-bottom: 20px;
+    border-radius: 16px; /* Bordas bem arredondadas */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Sombra suave */
+    padding: 20px;
+    position: relative;
+    
+    /* A borda verde lateral (indicador de status) */
+    border-left: 8px solid #10b981; 
+    
+    /* Força a cor do texto para escuro, pois o fundo é branco */
+    color: #333333; 
+  }
 
-    /* .card-risco-alto {
-        border-left: 6px solid #dc2626;
-    } */
+  /* --- CÉLULAS DO CARD --- */
+  .history-table td {
+    display: flex;
+    justify-content: space-between; /* Label na esq, Valor na dir */
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0; /* Linha divisória suave */
+    text-align: right;
+    font-size: 0.95rem;
+    color: #1f2937; /* Texto escuro */
+  }
+
+  /* Remove a borda do último item para ficar limpo */
+  .history-table td:last-child {
+    border-bottom: none;
+  }
+
+  /* --- OS LABELS (Data, Cliente, Saldo...) --- */
+  /* Usa o atributo data-label que configuramos antes */
+  .history-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #6b7280; /* Cinza médio para o label */
+    text-transform: capitalize;
+    font-size: 0.9rem;
+  }
+
+  /* --- CUSTOMIZAÇÕES ESPECÍFICAS (Opcional para ficar idêntico) --- */
+  
+  /* Destaque para o Score ou Risco */
+  .history-table td[data-label="Risco"],
+  .history-table td[data-label="Score"] {
+    font-weight: 800;
+    color: #10b981; /* Verde */
+    font-size: 1.1rem;
+  }
 }

@@ -1,85 +1,70 @@
-.table-container {
-    width: 100%;
-    /* Garante que o container flex permita centralização */
-    display: flex;
-    justify-content: center;
-    padding-bottom: 20px;
+.historico-title {
+  text-align: center;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
 }
 
 table {
-    width: 96%;
-    margin: 0 auto;
-    border-collapse: collapse;
-    margin-top: 24px;
-}
-.historico-title {
-    text-align: center;
-    width: 100%;
-    margin-bottom: 24px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
 }
 
-/* Cabeçalho */
-thead {
-    background: linear-gradient(135deg, #9ca3af, #6b7280);
+/* Cabeçalho da Tabela */
+thead tr {
+  background-color: rgba(0, 207, 255, 0.1); /* Fundo sutil neon */
+  color: var(--primary-neon);
+  text-align: left;
 }
 
-thead th {
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    border-bottom: 2px solid #d1d5db;
+th, td {
+  padding: 12px 15px;
+  border-bottom: 1px solid rgba(176, 196, 222, 0.1); /* Linha divisória sutil */
 }
 
-/* Células */
-th,
-td {
-    padding: 14px 12px;
-    text-align: center;
-    vertical-align: middle;
-    border-bottom: 1px solid #e5e7eb;
+/* Linhas do corpo */
+tbody tr {
+  color: #FFFFFF;
+  transition: background 0.2s;
 }
 
-.previsao-text {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;     /* Centraliza Horizontalmente */
-    justify-content: center !important; /* Centraliza Verticalmente */
-    text-align: center !important;
-    width: 100%;
-}
-
-.data-hora {
-    white-space: nowrap !important; /* Impede quebra de linha */
-    width: 1%; /* Faz a coluna ocupar só o espaço necessário */
-}
-
-/* Linhas alternadas */
-tbody tr:nth-child(even) {
-    background-color: #f9fafb;
-}
-
+/* Hover na linha */
 tbody tr:hover {
-    background-color: #eef2ff;
-    transition: background-color 0.2s ease;
+  background-color: rgba(255, 255, 255, 0.03);
+  color: var(--text-main);
 }
 
-.risco-alto strong {
-    color: #991b1b;
-    font-weight: 700;
+/* Cores de Risco (Texto) */
+.alto-risco { color: #ff4d4d; } /* Vermelho mais vivo para dark mode */
+.medio-risco { color: #ffca28; } /* Amarelo ouro */
+.baixo-risco { color: #00e676; } /* Verde neon */
+
+/* Card Styles para Previsão */
+.previsao-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.risco-medio strong {
-    color: #92400e;
-    font-weight: 700;
+.no-data {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 20px;
+  font-style: italic;
 }
 
-.risco-baixo strong {
-    color: #065f46;
-    font-weight: 700;
+.error {
+  color: #ff4d4d;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
+/* Paginacao Dark */
 .paginacao-container {
     display: flex;
     justify-content: center;
@@ -89,30 +74,109 @@ tbody tr:hover {
     padding: 10px;
 }
 
+.info-paginacao {
+    color: var(--text-muted);
+}
+
 .btn-paginacao {
-    background-color: #6366f1; /* Cor primária */
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.2s;
-    width: auto; /* Não ocupar 100% */
+    background-color: var(--input-bg);
+    color: var(--primary-neon);
+    border: 1px solid rgba(0, 207, 255, 0.3);
+    box-shadow: none;
 }
 
 .btn-paginacao:hover:not(:disabled) {
-    background-color: #4f46e5;
-    transform: translateY(-1px);
+    background-color: var(--primary-neon);
+    color: var(--bg-dark);
 }
 
 .btn-paginacao:disabled {
-    background-color: #cbd5e1;
-    cursor: not-allowed;
-    opacity: 0.7;
+    background-color: transparent;
+    color: #444;
+    border-color: #444;
 }
 
-.info-paginacao {
-    font-size: 14px;
-    color: var(--text-dark);
+/* styles/historico.css - Base Visual */
+
+.history-table {
+  width: 100%;
+  color: #FFFFFF;
+  border-collapse: collapse;
+  background-color: transparent; /* Remove o fundo branco */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  opacity: 1;
+}
+
+.history-table thead th {
+  background-color: rgba(0, 207, 255, 0.1);
+  color: var(--primary-neon);
+  padding: 12px;
+  text-align: left;
+}
+
+.history-table tbody tr {
+  background-color: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.history-table td {
+  padding: 12px;
+  color: var(--text-muted); /* Cinza azulado para leitura */
+}
+
+/* Adicione isso no seu styles/mobile.css ou dentro de @media no historico.css */
+
+@media (max-width: 768px) {
+  
+  /* Esconde o cabeçalho da tabela (Data, País, etc) */
+  .history-table thead {
+    display: none;
+  }
+
+  /* Transforma a tabela em blocos */
+  .history-table, 
+  .history-table tbody, 
+  .history-table tr, 
+  .history-table td {
+    display: block;
+    width: 100%;
+  }
+
+  /* Estiliza cada "Linha" como um Card */
+  .history-table tr {
+    margin-bottom: 15px;
+    background-color: var(--card-bg);
+    border: 1px solid rgba(0, 207, 255, 0.2);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+
+  /* Ajusta as células para parecerem linhas de informação */
+  .history-table td {
+    text-align: right; /* Valor à direita */
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    color: #FFFFFF;
+    font-weight: 500;
+    justify-content: space-between; /* Label na esq, Valor na dir */
+    align-items: center;
+  }
+
+  .history-table td:last-child {
+    border-bottom: none;
+  }
+
+  /* * TRUQUE CSS: Usar o atributo data-label para criar "Labels" falsos 
+   * Você precisará garantir que seu HTML tenha <td data-label="País">França</td>
+   */
+  .history-table td::before {
+    content: attr(data-label); /* Pega o texto do atributo data-label */
+    float: left;
+    font-weight: bold;
+    color: var(--primary-neon);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
 }

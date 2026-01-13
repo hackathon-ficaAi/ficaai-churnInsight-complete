@@ -1,64 +1,48 @@
 import React from "react";
 import { getNivelRisco } from "../utils/riscoUtils";
+// Importante: Importar o CSS específico do resultado
+import "../styles/resultado.css";
 
 export default function Resultado({ resultado }) {
   if (!resultado) return null;
 
-  // 1. Pega a probabilidade
+  // 1. Pega a probabilidade e converte para número
   const prob = parseFloat(resultado.probabilidade);
   
-  // 2. Usa a nossa função utilitária para pegar o texto PADRONIZADO (Risco)
-  // Isso garante que se na tabela é "Alto Risco", aqui também será.
+  // 2. Usa a função utilitária para obter a classe e ícone padronizados
   const risco = getNivelRisco(prob);
   
   const porcentagem = (prob * 100).toFixed(1);
 
-  // 3. Define cores baseadas na classe que voltou do utils
-  let corBg, corBorda, corTitulo, mensagem;
-
+  // 3. Define a mensagem com base na classe de risco
+  let mensagem;
   if (risco.classe === "risco-alto") {
-    mensagem = "⚠️ Cliente com Alto risco de deixar o banco.";
-    corBg = "#ffebee";
-    corBorda = "#ef9a9a";
-    corTitulo = "#c62828";
+    mensagem = "⚠️ Alerta Crítico: Cliente com alta probabilidade de evasão. Ação imediata recomendada.";
   } else if (risco.classe === "risco-medio") {
-    mensagem = "⚠️ Cliente com risco Moderado de deixar o banco.";
-    corBg = "#fffbeb"; // Amarelo claro
-    corBorda = "#f59e0b";
-    corTitulo = "#92400e";
+    mensagem = "⚠️ Atenção: Risco moderado identificado. Monitore o engajamento deste cliente.";
   } else {
-    mensagem = "✅ Cliente com tendência a permanecer fiel.";
-    corBg = "#e8f5e9";
-    corBorda = "#a5d6a7";
-    corTitulo = "#2e7d32";
+    // Baixo risco
+    mensagem = "✅ Cliente estável: Tendência a permanecer fiel ao banco. Sem ações urgentes.";
   }
 
   return (
     <div className="resultado-container">
       <h3>Resultado da Análise</h3>
 
-      <div
-        className={`card-resultado ${risco.classe}`}
-        style={{
-          padding: "20px",
-          borderRadius: "8px",
-          backgroundColor: corBg,
-          border: `1px solid ${corBorda}`,
-          textAlign: "center",
-          marginTop: "20px",
-        }}
-      >
-        {/* AQUI ESTAVA O ERRO: Trocamos resultado.previsao por risco.label */}
-        <h2 style={{ color: corTitulo, margin: "10px 0", display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-          <span>{risco.icon}</span> 
+      {/* A classe dinâmica (ex: 'risco-alto') aplica o estilo Neon correto do CSS */}
+      <div className={`card-resultado ${risco.classe}`}>
+        
+        <h2 className="titulo-resultado">
+          <span className="icone-risco">{risco.icon}</span> 
           {risco.label} 
         </h2>
 
-        <p style={{ fontSize: "1.2rem" }}>
-          Probabilidade de Churn: <strong>{porcentagem}%</strong>
-        </p>
+        <div className="probabilidade-box">
+          <span className="label-prob">Probabilidade de Churn</span>
+          <span className="valor-prob">{porcentagem}%</span>
+        </div>
 
-        <p style={{ fontSize: "0.9rem", color: "#555", marginTop: "10px" }}>
+        <p className="mensagem-analise">
             {mensagem}
         </p>
       </div>
