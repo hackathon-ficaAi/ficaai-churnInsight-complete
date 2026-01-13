@@ -13,6 +13,7 @@
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.5-brightgreen)
 ![H2 Database](https://img.shields.io/badge/H2-Database-blue)
 ![Swagger](https://img.shields.io/badge/OpenAPI-Swagger-lightgrey)
+![React](https://img.shields.io/badge/React-18-61DAFB)
 
 
 </div>
@@ -153,7 +154,7 @@ Saída
 ## Testes
 
 ### Exemplos de uso (3 requisições de testes)
-1. Cliente com alto grau de cancelamento
+1. Cliente com alto risco de cancelamento
 ```json
   {
     "pais": "frança",
@@ -166,7 +167,7 @@ Saída
   }
 ```
 
-2. Cliente fiel (baixo grau de cancelamento)
+2. Cliente fiel (baixo risco de cancelamento)
 ```json
   {
     "pais": "frança",
@@ -179,7 +180,7 @@ Saída
   }
 ```
 
-3. Cliente com médio grau de cancelamento
+3. Cliente com médio risco de cancelamento
 ```json
   {
     "pais": "frança",
