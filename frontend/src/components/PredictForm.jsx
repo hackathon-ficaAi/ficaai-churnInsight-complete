@@ -127,19 +127,30 @@ export default function PredictForm(onVerHistorico) {
       <div
         style={{
           display: "flex",
+          alignItems: "column",
           alignItems: "center",
-          gap: "12px",
-          marginBottom: "20px",
+          gap: "24px",
+          marginBottom: "24px",
+          gap: "10px",
         }}
       >
         <img
           src="./FicaAI_logo.png"
-          alt="Logo FicaAI"
-          width={"60"}
-          height={"60"}
-          loading="lazy"
+          style={{ 
+            width: "80px",       // Um tamanho que não fique gigante
+            height: "80px", 
+            borderRadius: "16px", // Arredonda os cantos (fica muito mais moderno!)
+            boxShadow: "0 4px 10px rgba(0,0,0,0.15)" // Uma sombrinha leve para destacar
+        }}
         />
-        <h1 style={{ margin: 0 }}>Previsão de Churn Bancário</h1>
+        <h1 style={{ 
+        textAlign: "center", 
+        color: "var(--text-dark)",
+        fontSize: "24px",
+        margin: 0 
+    }}>
+        Previsão de Churn <br /> Bancário
+    </h1>
       </div>
 
       <form onSubmit={handleSubmit}>
