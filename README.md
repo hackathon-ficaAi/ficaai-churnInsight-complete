@@ -201,11 +201,11 @@ Durante o desenvolvimento, diferentes algoritmos de classificação foram testad
 O modelo **LightGBM** foi escolhido como final por apresentar melhor equilíbrio entre **Recall** e **Precisão**, além de maior consistência entre treino e teste.
 
 ### Métricas principais do LightGBM
-- **Acurácia (teste):** 0.818  
-- **Recall:** 0.782 (capacidade de identificar clientes em risco)  
-- **Precisão:** 0.549  
-- **F1-score:** 0.645  
-- **PR-AUC:** 0.726 
+- **Acurácia (teste):** 0.81  
+- **Recall:** 0.78 (capacidade de identificar clientes em risco)  
+- **Precisão:** 0.55  
+- **F1-score:** 0.65  
+- **PR-AUC:** 0.726 ---> Confirmar
 
 Esses resultados mostram que o modelo consegue identificar a maioria dos clientes propensos ao cancelamento, permitindo que o banco aja de forma preventiva.
 
