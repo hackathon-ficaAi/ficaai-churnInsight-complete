@@ -21,7 +21,7 @@
 
 - [Introdução](#introdução)
 - [Objetivo](#objetivo)
-- [Arquitetura Inicial](#arquitetura-inicial)
+- [Arquitetura da Solução](#arquitetura-da-solução)
 - [Setup](#setup)
 - [Testes](#testes)
 - [Notebook Completo](#notebook-completo)
@@ -33,18 +33,27 @@
 
 ## Introdução
 
-Bancos digitais e fintechs trabalham com clientes que mantêm contas, cartões e serviços recorrentes. Sabe-se que é muito mais caro fazer login com um novo cliente do que manter um já existente. Por isso, é vantajoso para os bancos saber o que leva um cliente à decisão de deixar a empresa.
+Bancos digitais e fintechs trabalham com clientes que mantêm contas, cartões e serviços recorrentes. Sabe-se que é muito mais caro captar um novo cliente do que manter um já existente. Por isso, é vantajoso para os bancos saber o que leva um cliente à decisão de deixar a empresa.
 
 
 ## Objetivo
 
-Desenvolver um MVP - Produto Mínimo Viável para identificar clientes com risco de **churn** (cancelamento) com variáveis que ajudam a prever se o cliente vai sair ou não.
+Desenvolver um MVP capaz de prever clientes em risco de churn a partir de variáveis demográficas (idade, país, gênero), financeiras (saldo, salário estimado) e comportamentais (número de produtos, membro ativo). Essa combinação permite que bancos digitais identifiquem antecipadamente clientes propensos ao cancelamento e adotem ações de retenção antes da perda.
 
 
-## Arquitetura Inicial
+## Arquitetura da Solução
 
 Visualização dos componentes do sistema e do fluxo de dados. [Diagrama de Sequência de Orquestração Backend + IA](https://drive.google.com/file/d/129lMFAp8Qr_Df3LdVijGTWCgLPpsWXqs/view?usp=drive_link)
 
+### Como Funciona:
+1. Entrada de dados  
+O cliente envia informações (idade, país, gênero, saldo, número de produtos, membro ativo, salário estimado) via requisição JSON para a API em Java (Spring Boot).
+
+2. Processamento  
+O back-end valida os dados e os encaminha para o modelo de Machine Learning (LightGBM), exposto em um microserviço Python (FastAPI).
+
+3. Saída de resultados  
+O modelo retorna a previsão de churn e a probabilidade associada. O back-end organiza essa resposta e disponibiliza via API. Os resultados podem ser armazenados no banco H2 e visualizados em um dashboard.
 
 ## Setup
 
@@ -185,6 +194,22 @@ Saída
 ## Notebook Completo 
 [Projeto Final ChurnBank](https://colab.research.google.com/drive/1MQzkmvdJQVgpMZ85ETcQvxSZM8JtCFYY)
 
+### Modelo e Resultados
+
+Durante o desenvolvimento, diferentes algoritmos de classificação foram testados (AdaBoost, Random Forest, XGBoost, Logistic Regression e LightGBM). 
+
+O modelo **LightGBM** foi escolhido como final por apresentar melhor equilíbrio entre **Recall** e **Precisão**, além de maior consistência entre treino e teste.
+
+### Métricas principais do LightGBM
+- **Acurácia (teste):** 0.818  
+- **Recall:** 0.782 (capacidade de identificar clientes em risco)  
+- **Precisão:** 0.549  
+- **F1-score:** 0.645  
+- **PR-AUC:** 0.726 (boa discriminação em dataset desbalanceado)
+
+Esses resultados mostram que o modelo consegue identificar a maioria dos clientes propensos ao cancelamento, permitindo que o banco aja de forma preventiva.
+
+
 ## Funcionalidades do MVP
 
 **1.Endpoints:** ✅ implementado
@@ -201,14 +226,11 @@ Saída
 
 **6.Containerização:** ✅ implementado
 
-**7.Projeto em nuvem OCI - Oracle Cloud Infrastructure:**  ✅ implementado
+**7.Dashboard (Streamlit):** ✅ implementado
+
+**8.Projeto em nuvem OCI - Oracle Cloud Infrastructure:**  ✅ implementado
 
 - Acesse a aplicação  👉 [Previsão de Churn Bancário](http://137.131.255.43:5173/frontend/)
-
-
-## Licença 
-
-Este projeto está licenciado sob a licença MIT — veja o arquivo [LICENSE](https://raw.githubusercontent.com/hackathon-ficaAi/ficaai-churnInsight-complete/refs/heads/main/backend-main/LICENSE) para mais detalhes.
 
 ## Dependências e Versões das Ferramentas
 
@@ -240,9 +262,14 @@ Este projeto está licenciado sob a licença MIT — veja o arquivo [LICENSE](ht
 - feature-engine==1.9.3 *(engenharia de features)*
 - xgboost==3.1.2 *(modelo gradient boosting)*
 - lightgbm==4.6.0 *(modelo gradient boosting)*
-
+- streamlit (>=1.52) *(dashboard e visualização de risco)*
+  
 #### Gerenciamento de Experimentos e Modelos 
 - mlflow (>=3.8.1) *(para rastreamento de experimentos, versionamento e deploy de modelos)*
+
+## Licença 
+
+Este projeto está licenciado sob a licença MIT — veja o arquivo [LICENSE](https://raw.githubusercontent.com/hackathon-ficaAi/ficaai-churnInsight-complete/refs/heads/main/backend-main/LICENSE) para mais detalhes.
 
 ## Contribuição
 
