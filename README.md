@@ -205,7 +205,7 @@ O modelo **LightGBM** foi escolhido como final por apresentar melhor equilíbrio
 - **Recall:** 0.78 (capacidade de identificar clientes em risco)  
 - **Precisão:** 0.55  
 - **F1-score:** 0.65  
-- **PR-AUC:** 0.726 ---> Confirmar
+- **PR-AUC:** 0.73
 
 Esses resultados mostram que o modelo consegue identificar a maioria dos clientes propensos ao cancelamento, permitindo que o banco aja de forma preventiva.
 
