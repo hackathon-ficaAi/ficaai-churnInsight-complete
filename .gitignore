@@ -6,3 +6,6 @@ mlruns/
 amostra.json
 .venv/
 .env
+/data-science/data/*
+!/data-science/data/churn_teste.csv
+!/data-science/data/churn_treino.csv
