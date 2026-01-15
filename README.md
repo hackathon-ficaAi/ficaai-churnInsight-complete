@@ -131,13 +131,13 @@ POST /predict
 
 ```json
 {
-  "pais": "França",
-  "genero": "Feminino",
+  "pais": "frança",
+  "genero": "feminino",
   "idade": 40,
-  "saldo": 60000.0,
+  "saldo": 60000.00,
+  "salario_estimado": 50000.00,
   "num_produtos": 2,
-  "membro_ativo": true,
-  "salario_estimado": 50000.0
+  "membro_ativo": true
 }
 ```
 
@@ -146,7 +146,7 @@ Saída
 ```json
 {
   "probabilidade_churn": 0.40,
-  "previsao_churn": "Chance baixa de cancelamento"
+  "previsao_churn": "Baixo Grau de Cancelamento"
 }
 
 ```
@@ -154,44 +154,47 @@ Saída
 ## Testes
 
 ### Exemplos de uso (3 requisições de testes)
-1. Cliente com alto risco de cancelamento
-```json
-  {
-    "pais": "frança",
-    "genero": "feminino",
-    "idade": 46.0,
-    "num_produtos": 1,
-    "membro_ativo": 0.0,
-    "saldo": 0.0,
-    "salario_estimado": 72549.27
-  }
-```
 
-2. Cliente fiel (baixo risco de cancelamento)
-```json
-  {
-    "pais": "frança",
-    "genero": "feminino",
-    "idade": 23.0,
-    "num_produtos": 2,
-    "membro_ativo": 1.0,
-    "saldo": 0.0,
-    "salario_estimado": 160976.75
-  }
-```
+#### 1. Cliente fiel (baixo risco de cancelamento)
 
-3. Cliente com médio risco de cancelamento
+  ```json
+    {
+      "pais": "frança",
+      "genero": "feminino",
+      "idade": 23,
+      "saldo": 0.00,
+      "salario_estimado": 160976.75,
+      "num_produtos": 2,
+      "membro_ativo": 1 (TRUE) 
+    }
+  ```
+
+#### 2. Cliente com médio risco de cancelamento
+
 ```json
   {
     "pais": "frança",
     "genero": "masculino",
-    "idade": 36.0,
+    "idade": 36,
+    "saldo": 0.00,
+    "salario_estimado": 113931.57,
     "num_produtos": 1,
-    "membro_ativo": 0.0,
-    "saldo": 0.0,
-    "salario_estimado": 113931.57
+    "membro_ativo": 0 (FALSE)
   }
 ```
+#### 3. Cliente com alto risco de cancelamento
+```json
+  {
+    "pais": "frança",
+    "genero": "feminino",
+    "idade": 46,
+    "saldo": 0.00,
+    "salario_estimado": 72549.27,
+    "num_produtos": 1,
+    "membro_ativo": 0 (FALSE)
+  }
+```
+
 ## Notebook Completo 
 [Projeto Final ChurnBank](https://colab.research.google.com/drive/1MQzkmvdJQVgpMZ85ETcQvxSZM8JtCFYY)
 
@@ -203,6 +206,7 @@ O modelo **LightGBM** foi escolhido como final por apresentar melhor equilíbrio
 
 ### Métricas principais do LightGBM
 - **Acurácia (teste):** 0.81  
+- **ROC-AUC:** 0.89
 - **Recall:** 0.78 (capacidade de identificar clientes em risco)  
 - **Precisão:** 0.55  
 - **F1-score:** 0.65  
@@ -210,6 +214,33 @@ O modelo **LightGBM** foi escolhido como final por apresentar melhor equilíbrio
 
 Esses resultados mostram que o modelo consegue identificar a maioria dos clientes propensos ao cancelamento, permitindo que o banco aja de forma preventiva.
 
+## Nota de Corte
+
+Definimos três faixas de risco com base na probabilidade prevista de churn pelo modelo:
+
+- **Alto risco**: probabilidade ≥ 80%
+
+- **Médio risco**: probabilidade ≥ 60% e < 80%
+
+- **Baixo risco**: probabilidade < 60%
+
+### Justificativa estratégica
+
+Optamos por esses limites considerando o trade-off entre recall e precisão do modelo (recall alto — 0.78 — e precisão moderada — 0.55). Priorizar um recall elevado significa identificar a maior parte dos clientes que realmente irão cancelar (minimizando falsos negativos), mesmo que isso gere um número maior de falsos positivos. Essa abordagem é apropriada quando o custo de deixar um cliente churnar (perda de receita e impacto de longo prazo) é superior ao custo de executar ações preventivas sobre alguns clientes que, no final, não teriam cancelado.
+
+### Impacto operacional esperado
+
+- Alto risco (≥80%): receberá as ações mais intensivas (por exemplo, contato proativo por equipe especializada, ofertas personalizadas de retenção). Esse grupo tende a apresentar maior ROI por ação, dada a alta probabilidade de churn.
+
+- Médio risco (60–79%): receberá ações moderadas e escaláveis (por exemplo, campanhas segmentadas, ofertas digitais ou ligação automatizada). Aqui o objetivo é converter clientes que ainda são “recuperáveis” com esforços menos custosos.
+
+- Baixo risco (<60%): monitoramento e ações de baixo custo (mensagens de engagement, conteúdo educativo). Evitamos investimentos pesados nesta faixa para não diluir recursos.
+
+### Observação final
+
+A estratégia de corte atual é orientada a maximizar a retenção dado o perfil de desempenho do modelo (alto recall, precisão moderada). Entretanto, a configuração ótima depende de variáveis de negócio (custo da ação, valor do cliente, capacidade operacional) — por isso recomendamos revisitar os thresholds com dados reais de intervenção e incorporar uma camada de otimização baseada em custo/benefício.
+
+O Dashboard que será apresentado abaixo poderá auxiliar nisso, uma vez que possui uma ferramenta de Limiar de Risco, permitindo a empresa fazer o próprio balanceamento em relação a retenção de clientes e custo de ação.
 
 ## Funcionalidades do MVP
 
