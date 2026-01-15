@@ -39,12 +39,21 @@ Bancos digitais e fintechs trabalham com clientes que mantêm contas, cartões e
 
 ## Objetivo
 
-Desenvolver um MVP capaz de prever clientes em risco de churn a partir de variáveis demográficas (idade, país, gênero), financeiras (saldo, salário estimado) e comportamentais (número de produtos, membro ativo). Essa combinação permite que bancos digitais identifiquem antecipadamente clientes propensos ao cancelamento e adotem ações de retenção antes da perda.
+Desenvolver um MVP capaz de prever clientes em risco de churn (cancelamento) com base em variáveis demográficas (idade, país, gênero), financeiras (saldo, salário estimado) e comportamentais (número de produtos contratados, status de membro ativo).
 
+O resultado da previsão é segmentado por grau de risco:
+
+🟢 Baixo risco – tendência a permanecer fiel ao banco
+
+🟡 Médio risco – comportamento instável ou sinais iniciais de churn
+
+🔴 Alto risco – Cliente com alta probabilidade de evasão
+
+Essa segmentação permite que bancos digitais adotem ações de retenção proativas antes da perda efetiva.
 
 ## Arquitetura da Solução
 
-Visualização dos componentes do sistema e do fluxo de dados. [Diagrama de Sequência de Orquestração Backend + IA](https://drive.google.com/file/d/129lMFAp8Qr_Df3LdVijGTWCgLPpsWXqs/view?usp=drive_link)
+Visualização dos componentes do MVP e do fluxo de dados. [Diagrama de Sequência de Orquestração Backend + IA](https://drive.google.com/file/d/1HrjwrgZYAO3soYxHoJ6O7AoB_7uhhNTh/view?usp=drive_link)
 
 ### Como Funciona:
 1. Entrada de dados  
@@ -58,7 +67,7 @@ O modelo retorna a previsão de churn e a probabilidade associada. O back-end or
 
 ## Setup
 
-### Como executar o Projeto
+### Como executar o projeto localmente
 ### Pré-requisitos 
 - **Docker** e **Docker Compose** instalados
 
@@ -210,6 +219,8 @@ O modelo **LightGBM** foi escolhido como final por apresentar melhor equilíbrio
 
 Esses resultados mostram que o modelo consegue identificar a maioria dos clientes propensos ao cancelamento, permitindo que o banco aja de forma preventiva.
 
+- 🧠 **Modelo LightGBM (modelo escolhido por apresentar melhor equilíbrio entre Recall e Precisão)**
+[model_pipeline.joblib](https://drive.google.com/file/d/1A_vB2-Mpx6iKJLr8NEIMxlTMIAhxfRu-/view?usp=sharing)
 
 ## Funcionalidades do MVP
 
