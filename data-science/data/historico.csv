@@ -1,4 +1,5 @@
 pais,genero,idade,num_produtos,membro_ativo,saldo,salario_estimado,probabilidade_churn,previsao,data_analise
+France,Male,56,1,1,4553433.0,3444443.0,0.5883939146064546,Baixo Grau de Cancelamento,2026-01-14T18:18:04.313055
 Germany,Male,76,4,1,55666.0,22233.0,0.7837725374752151,Médio Grau de Cancelamento,2026-01-13T21:20:46.651588
 Germany,Male,76,3,1,55666.0,232333.0,0.780311201425008,Médio Grau de Cancelamento,2026-01-13T21:20:43.555295
 Germany,Male,76,2,0,55666.0,232333.0,0.5309097566827823,Baixo Grau de Cancelamento,2026-01-13T21:20:40.712990

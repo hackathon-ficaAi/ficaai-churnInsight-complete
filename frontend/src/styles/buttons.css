@@ -51,40 +51,59 @@ button.secondary:hover {
 /* --- TABS (MENU SUPERIOR) --- */
 .tabs-container {
     display: flex;
-    background: var(--card-bg);
-    padding: 5px;
-    border-radius: 12px;
+    gap: 15px;
     margin-bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%; /* Garante que o container use a largura disponível */
 }
 
-.btn-neutral {
-  flex: 1;
-  background-color: var(--secondary-blue); 
-  color: #000000; 
-  
-  border: none;
-  box-shadow: none;
-  padding: 12px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  opacity: 0.7; 
+/* ESTILO PADRÃO (Inativo / Escuro) */
+.btn-tab {
+    /* CENTRALIZAÇÃO TOTAL */
+    display: flex;
+    align-items: center;      /* Vertical */
+    justify-content: center;  /* Horizontal */
+    text-align: center;       /* Garante alinhamento do texto */
+    
+    flex: 1;                  /* Força todos os botões a terem o mesmo tamanho */
+    width: 100%;              /* Garante que ocupem a largura do flex */
+    
+    /* FUNDO ESCURO (Inativo) */
+    background: rgba(0, 207, 255, 0.05) !important;
+    border: 1px solid rgba(0, 207, 255, 0.3) !important;
+    color: var(--primary-neon) !important;
+    
+    /* Texto e Layout */
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 0; /* Ajuste: removi o padding lateral fixo para o flex:1 controlar a largura */
+    border-radius: 12px;
+    cursor: pointer;
+    text-decoration: none; /* Remove sublinhado de link */
+    transition: all 0.3s ease;
+    box-shadow: none !important;
+    
+    /* Garante que o box model não quebre o layout */
+    box-sizing: border-box;
+    margin: 0;
 }
 
-.btn-neutral:hover {
-  background-color: var(--primary-neon); /* Fica igual ao ativo ao passar o mouse */
-  opacity: 1;
-  color: #000000;
+/* HOVER (Ao passar o mouse) */
+.btn-tab:hover {
+    background: var(--primary-neon) !important;
+    color: #000000 !important;
+    box-shadow: 0 0 20px rgba(0, 207, 255, 0.4) !important;
+    transform: translateY(-2px);
+    border-color: var(--primary-neon) !important;
 }
 
-.btn-neutral.active {
-    background-color: var(--primary-neon); /* Fundo Neon */
-    color: #000000;  /* Texto PRETO para contraste */
-    font-weight: 800; /* Mais negrito */
-    box-shadow: 0 2px 15px rgba(0, 207, 255, 0.4);
+/* ACTIVE (Aba Selecionada) */
+.btn-tab.active {
+    background: linear-gradient(135deg, var(--primary-neon), var(--secondary-blue)) !important;
+    color: #000000 !important;
+    font-weight: 800;
+    border: none !important;
+    box-shadow: 0 0 25px rgba(0, 207, 255, 0.5) !important;
 }
-
 /* Botão Dashboard */
 .btn-dashboard {
   display: flex;
