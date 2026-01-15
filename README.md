@@ -48,11 +48,11 @@ Desenvolver um MVP capaz de prever clientes em risco de churn (cancelamento) com
 
 O resultado da previsão é segmentado por grau de risco:
 
-🟢 Baixo risco – tendência a permanecer fiel ao banco
+🔴 Alto risco – Cliente com alta probabilidade de evasão (>=80)
 
-🟡 Médio risco – comportamento instável ou sinais iniciais de churn
+🟡 Médio risco – comportamento instável ou sinais iniciais de churn (>=60)
 
-🔴 Alto risco – Cliente com alta probabilidade de evasão
+🟢 Baixo risco – tendência a permanecer fiel ao banco (0 a 59.99)
 
 Essa segmentação permite que bancos digitais adotem ações de retenção proativas antes da perda efetiva.
 
