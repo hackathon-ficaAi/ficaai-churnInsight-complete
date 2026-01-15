@@ -13,7 +13,12 @@
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.5-brightgreen)
 ![H2 Database](https://img.shields.io/badge/H2-Database-blue)
 ![Swagger](https://img.shields.io/badge/OpenAPI-Swagger-lightgrey)
-![React](https://img.shields.io/badge/React-18-61DAFB)
+![React](https://img.shields.io/badge/React-19.2.0-61DAFB)
+![Vite](https://img.shields.io/badge/Vite-7.2.4-646CFF)
+![Node.js](https://img.shields.io/badge/Node.js-20%20(Alpine%20Linux)-green)
+![ESLint](https://img.shields.io/badge/ESLint-9.39.1-purple)
+
+
 
 
 </div>
