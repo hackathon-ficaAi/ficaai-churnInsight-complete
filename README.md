@@ -13,6 +13,7 @@
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.5-brightgreen)
 ![H2 Database](https://img.shields.io/badge/H2-Database-blue)
 ![Swagger](https://img.shields.io/badge/OpenAPI-Swagger-lightgrey)
+![React](https://img.shields.io/badge/React-18-61DAFB)
 
 
 </div>
@@ -153,7 +154,7 @@ Saída
 ## Testes
 
 ### Exemplos de uso (3 requisições de testes)
-1. Cliente com alto grau de cancelamento
+1. Cliente com alto risco de cancelamento
 ```json
   {
     "pais": "frança",
@@ -166,7 +167,7 @@ Saída
   }
 ```
 
-2. Cliente fiel (baixo grau de cancelamento)
+2. Cliente fiel (baixo risco de cancelamento)
 ```json
   {
     "pais": "frança",
@@ -179,7 +180,7 @@ Saída
   }
 ```
 
-3. Cliente com médio grau de cancelamento
+3. Cliente com médio risco de cancelamento
 ```json
   {
     "pais": "frança",
@@ -238,13 +239,18 @@ Esses resultados mostram que o modelo consegue identificar a maioria dos cliente
 
 ### Back-End
 - **Java:** 21 (Eclipse Temurin)
-- **Spring Boot:** 3.3.5
+- **Framework:** Spring Boot 3.3.5
 - **Banco de Dados:** H2 (em memória)
+- **Persistência:** Spring Data JPA (Hibernate)
 - **Documentação:** SpringDoc OpenAPI (Swagger)
-- **Containerização:** Docker & Docker Compose
+- **Containerização:** Docker & Docker Compose (v1.29)
+- **Utilitário:** Lombok (Redução de código boilerplate)
 
 ### Front-End
-- **React:** 18.x
+- **Framework:** React 19.2.0
+- **Build Tool:** Vite 7.2.4
+- **Runtime (Docker):** Node.js 20 (Alphine Linux)
+- **Linting:** ESLint 9.39.1
 
 ### Data Science / Python
 - **Python:** 3.11.14
