@@ -291,9 +291,10 @@ Esses resultados mostram que o modelo consegue identificar a maioria dos cliente
 #### Gerenciamento de Experimentos e Modelos 
 - mlflow (>=3.8.1) *(para rastreamento de experimentos, versionamento e deploy de modelos)*
 
-## Licença 
+## Licença
 
-Este projeto está licenciado sob a licença MIT — veja o arquivo [LICENSE](https://raw.githubusercontent.com/hackathon-ficaAi/ficaai-churnInsight-complete/refs/heads/main/backend-main/LICENSE) para mais detalhes.
+Este projeto está licenciado sob os termos da licença MIT.  
+Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
 
 ## Contribuição
 
