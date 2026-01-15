@@ -13,7 +13,12 @@
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.5-brightgreen)
 ![H2 Database](https://img.shields.io/badge/H2-Database-blue)
 ![Swagger](https://img.shields.io/badge/OpenAPI-Swagger-lightgrey)
-![React](https://img.shields.io/badge/React-18-61DAFB)
+![React](https://img.shields.io/badge/React-19.2.0-61DAFB)
+![Vite](https://img.shields.io/badge/Vite-7.2.4-646CFF)
+![Node.js](https://img.shields.io/badge/Node.js-20%20(Alpine%20Linux)-green)
+![ESLint](https://img.shields.io/badge/ESLint-9.39.1-purple)
+
+
 
 
 </div>
@@ -39,12 +44,21 @@ Bancos digitais e fintechs trabalham com clientes que mantêm contas, cartões e
 
 ## Objetivo
 
-Desenvolver um MVP capaz de prever clientes em risco de churn a partir de variáveis demográficas (idade, país, gênero), financeiras (saldo, salário estimado) e comportamentais (número de produtos, membro ativo). Essa combinação permite que bancos digitais identifiquem antecipadamente clientes propensos ao cancelamento e adotem ações de retenção antes da perda.
+Desenvolver um MVP capaz de prever clientes em risco de churn (cancelamento) com base em variáveis demográficas (idade, país, gênero), financeiras (saldo, salário estimado) e comportamentais (número de produtos contratados, status de membro ativo).
 
+O resultado da previsão é segmentado por grau de risco:
+
+🔴 Alto risco – Cliente com alta probabilidade de evasão (>=80)
+
+🟡 Médio risco – comportamento instável ou sinais iniciais de churn (>=60)
+
+🟢 Baixo risco – tendência a permanecer fiel ao banco (0 a 59.99)
+
+Essa segmentação permite que bancos digitais adotem ações de retenção proativas antes da perda efetiva.
 
 ## Arquitetura da Solução
 
-Visualização dos componentes do sistema e do fluxo de dados. [Diagrama de Sequência de Orquestração Backend + IA](https://drive.google.com/file/d/129lMFAp8Qr_Df3LdVijGTWCgLPpsWXqs/view?usp=drive_link)
+Visualização dos componentes do MVP e do fluxo de dados. [Diagrama de Sequência de Orquestração Backend + IA](https://drive.google.com/file/d/1HrjwrgZYAO3soYxHoJ6O7AoB_7uhhNTh/view?usp=drive_link)
 
 ### Como Funciona:
 1. Entrada de dados  
@@ -58,7 +72,7 @@ O modelo retorna a previsão de churn e a probabilidade associada. O back-end or
 
 ## Setup
 
-### Como executar o Projeto
+### Como executar o projeto localmente
 ### Pré-requisitos 
 - **Docker** e **Docker Compose** instalados
 
@@ -214,6 +228,9 @@ O modelo **LightGBM** foi escolhido como final por apresentar melhor equilíbrio
 
 Esses resultados mostram que o modelo consegue identificar a maioria dos clientes propensos ao cancelamento, permitindo que o banco aja de forma preventiva.
 
+- 🧠 **Modelo LightGBM (modelo escolhido por apresentar melhor equilíbrio entre Recall e Precisão)**
+[model_pipeline.joblib](https://drive.google.com/file/d/1A_vB2-Mpx6iKJLr8NEIMxlTMIAhxfRu-/view?usp=sharing)
+
 ## Nota de Corte
 
 Definimos três faixas de risco com base na probabilidade prevista de churn pelo modelo:
@@ -241,6 +258,7 @@ Optamos por esses limites considerando o trade-off entre recall e precisão do m
 A estratégia de corte atual é orientada a maximizar a retenção dado o perfil de desempenho do modelo (alto recall, precisão moderada). Entretanto, a configuração ótima depende de variáveis de negócio (custo da ação, valor do cliente, capacidade operacional) — por isso recomendamos revisitar os thresholds com dados reais de intervenção e incorporar uma camada de otimização baseada em custo/benefício.
 
 O Dashboard que será apresentado abaixo poderá auxiliar nisso, uma vez que possui uma ferramenta de Limiar de Risco, permitindo a empresa fazer o próprio balanceamento em relação a retenção de clientes e custo de ação.
+
 
 ## Funcionalidades do MVP
 
@@ -270,13 +288,18 @@ O Dashboard que será apresentado abaixo poderá auxiliar nisso, uma vez que pos
 
 ### Back-End
 - **Java:** 21 (Eclipse Temurin)
-- **Spring Boot:** 3.3.5
+- **Framework:** Spring Boot 3.3.5
 - **Banco de Dados:** H2 (em memória)
+- **Persistência:** Spring Data JPA (Hibernate)
 - **Documentação:** SpringDoc OpenAPI (Swagger)
-- **Containerização:** Docker & Docker Compose
+- **Containerização:** Docker & Docker Compose (v1.29)
+- **Utilitário:** Lombok (Redução de código boilerplate)
 
 ### Front-End
-- **React:** 18.x
+- **Framework:** React 19.2.0
+- **Build Tool:** Vite 7.2.4
+- **Runtime (Docker):** Node.js 20 (Alphine Linux)
+- **Linting:** ESLint 9.39.1
 
 ### Data Science / Python
 - **Python:** 3.11.14
@@ -301,9 +324,10 @@ O Dashboard que será apresentado abaixo poderá auxiliar nisso, uma vez que pos
 #### Gerenciamento de Experimentos e Modelos 
 - mlflow (>=3.8.1) *(para rastreamento de experimentos, versionamento e deploy de modelos)*
 
-## Licença 
+## Licença
 
-Este projeto está licenciado sob a licença MIT — veja o arquivo [LICENSE](https://raw.githubusercontent.com/hackathon-ficaAi/ficaai-churnInsight-complete/refs/heads/main/backend-main/LICENSE) para mais detalhes.
+Este projeto está licenciado sob os termos da licença MIT.  
+Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
 
 ## Contribuição
 

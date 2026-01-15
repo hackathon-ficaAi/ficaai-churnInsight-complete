@@ -2,14 +2,14 @@ import { useState } from "react";
 import { predictChurn } from "../services/api";
 import Resultado from "./Resultado";
 
-const LIMITE_MAXIMO = 10_000_000_000_000; // 10 trilhões
+const LIMITE_MAXIMO = 10_000_000_000_000; 
 
 export default function PredictForm(onVerHistorico) {
   const [formData, setFormData] = useState({
-    pais: "", // Valor padrão
-    genero: "", // Valor padrão
+    pais: "", 
+    genero: "", 
     idade: "",
-    num_produtos: "1",
+    num_produtos: "",
     membro_ativo: true, // Boolean (Checkbox)
     saldo: "",
     salario_estimado: "",
@@ -77,7 +77,7 @@ export default function PredictForm(onVerHistorico) {
       pais: "",
       genero: "",
       idade: "",
-      num_produtos: "1",
+      num_produtos: "",
       membro_ativo: true,
       saldo: "",
       salario_estimado: "",
@@ -155,6 +155,8 @@ export default function PredictForm(onVerHistorico) {
               value={formData.pais}
               onChange={handleChange}
               required
+              autoComplete="off"
+              data-lpignore="true"
             >
               <option value="" disabled hidden>
                 Selecionar

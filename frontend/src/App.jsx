@@ -31,18 +31,16 @@ function App() {
         {/* Botão Previsão (Com flex: 1 para esticar) */}
         <button 
           onClick={() => setPagina("form")}
-          className={pagina === "form" ? "" : "btn-neutral"}
-          style={{ flex: 1 }} 
+          className={`btn-tab ${pagina === "form" ? "active" : ""}`}
         >
           Previsão
         </button>
 
         {/* Botão Histórico (Com flex: 1 para esticar) */}
         <button
-          className={pagina === "historico" ? "" : "btn-neutral"}
           onClick={() => setPagina("historico")}
-          style={{ flex: 1 }}
-        >
+          className={`btn-tab ${pagina === "historico" ? "active" : ""}`}
+  >
           Histórico
         </button>
 
@@ -52,9 +50,9 @@ function App() {
             target="_blank" 
             rel="noopener noreferrer"
             title="Ver Dashboard de Dados"
-            className="btn-dashboard"
+            className="btn-tab"
           >
-            📊
+            Dashboards
         </a>
 
       </div>
