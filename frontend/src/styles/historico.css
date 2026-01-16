@@ -1,3 +1,47 @@
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 2. Aplica a animação nas linhas da tabela */
+.history-table tbody tr {
+  /* Nome da animação | Duração (0.4s para ser suave) | Curva de velocidade | Mantém o estado final */
+  animation: slideInUp 0.4s ease-out forwards;
+  
+  /* Garante que comece invisível antes da animação rodar */
+  opacity: 0; 
+}
+
+
+.history-table tbody tr:hover {
+  /* Leve destaque visual ao passar o mouse */
+  transform: scale(1.01); /* Cresce 1% */
+  background-color: rgba(255, 255, 255, 0.05); /* Clareia o fundo levemente */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra suave */
+  z-index: 10; /* Garante que fique acima das outras */
+  position: relative;
+}
+
+/* 3. O "Pulo do Gato": Atraso (Delay) progressivo para cada linha 
+   Isso cria o efeito cascata, uma linha aparecendo depois da outra */
+
+.history-table tbody tr:nth-child(1)  { animation-delay: 0.05s; }
+.history-table tbody tr:nth-child(2)  { animation-delay: 0.10s; }
+.history-table tbody tr:nth-child(3)  { animation-delay: 0.15s; }
+.history-table tbody tr:nth-child(4)  { animation-delay: 0.20s; }
+.history-table tbody tr:nth-child(5)  { animation-delay: 0.25s; }
+.history-table tbody tr:nth-child(6)  { animation-delay: 0.30s; }
+.history-table tbody tr:nth-child(7)  { animation-delay: 0.35s; }
+.history-table tbody tr:nth-child(8)  { animation-delay: 0.40s; }
+.history-table tbody tr:nth-child(9)  { animation-delay: 0.45s; }
+.history-table tbody tr:nth-child(10) { animation-delay: 0.50s; }
+
 .historico-title {
   text-align: center;
   color: var(--text-main);

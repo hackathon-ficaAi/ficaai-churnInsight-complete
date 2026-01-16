@@ -10,7 +10,7 @@ export default function PredictForm(onVerHistorico) {
     genero: "", 
     idade: "",
     num_produtos: "",
-    membro_ativo: true, // Boolean (Checkbox)
+    membro_ativo: true, 
     saldo: "",
     salario_estimado: "",
   });
@@ -120,7 +120,7 @@ export default function PredictForm(onVerHistorico) {
   };
 
   return (
-    <div className="container">
+    <div className="container anime-expand">
       {/* Cabeçalho */}
       <div
         style={{

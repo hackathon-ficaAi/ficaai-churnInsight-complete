@@ -1,4 +1,5 @@
 const API_BASE = "http://localhost:8080/api";
+//const API_BASE = "http://137.131.255.43:8080/api"; // Produção
 
 export async function predictChurn(dados) {
   const response = await fetch(`${API_BASE}/predict`, {
