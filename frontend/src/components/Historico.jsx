@@ -22,7 +22,7 @@ export default function Historico({ voltarAoFormulario }) {
   }, []);
 
   return (
-    <div className="container" style={{ maxWidth: "1100px" }}>
+    <div className="container anime-expand" style={{ maxWidth: "1100px" }}>
       
       {/* Cabeçalho Ajustado com Logo Nova e Estilo Arredondado */}
       <div

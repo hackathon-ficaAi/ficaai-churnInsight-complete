@@ -1,3 +1,24 @@
+@keyframes expandirEntrada {
+  0% {
+    opacity: 0;
+    transform: scale(0.9); /* Começa 10% menor */
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);   /* Termina no tamanho real */
+  }
+}
+
+.anime-expand {
+  /* Aplica a animação de zoom no container geral */
+  animation: expandirEntrada 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  transform-origin: center;
+  
+  /* Garante que o container esteja visível para a animação rodar */
+  opacity: 0; 
+  /* O 'forwards' na animation vai manter opacity: 1 no final */
+}
+
 @keyframes slideInUp {
   from {
     opacity: 0;
