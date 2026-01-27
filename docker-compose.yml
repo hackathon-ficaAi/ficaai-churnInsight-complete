@@ -1,7 +1,23 @@
 version: '3.8'
 
 services:
-  # --- SERVIÇO 1: SEU BACKEND JAVA ---
+  # --- 1. BANCO DE DADOS (PostgreSQL) ---
+  db:
+    image: postgres:15-alpine
+    container_name: ficaai-postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin123
+      - POSTGRES_DB=churn_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - hackathon-net
+
+  # --- 2. BACKEND JAVA ---
   backend:
     container_name: ficaai-backend
     build: ./backend-main/
@@ -9,18 +25,25 @@ services:
       - "8080:8080"
     restart: always
     environment:
+      # Sobrescreve o application.properties para funcionar no Docker
       - SPRING_PROFILES_ACTIVE=default
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/churn_db
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin123
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      # Conexão com Python (Nome do container, não localhost)
       - PYTHON_API_URL=http://data-science-api:8000/predict
       - PYTHON_API_USAR_MOCK=false
     networks:
       - hackathon-net
     depends_on:
-      - data-science-api  # Espera o Python subir antes
+      - db
+      - data-science-api
 
-  # --- SERVIÇO 2: PYTHON (Data Science) ---
+  # --- 3. PYTHON API (Data Science) ---
   data-science-api:
     container_name: ficaai-python
-    # CORREÇÃO AQUI: O nome da pasta deve ser igual ao que está no seu VS Code
     build: ./data-science/
     ports:
       - "8000:8000"
@@ -29,21 +52,21 @@ services:
     networks:
       - hackathon-net
 
-  # --- SERVIÇO 3: FRONTEND (React) ---
+  # --- 4. FRONTEND (React) ---
   frontend:
     container_name: ficaai-frontend
-    # Remoção do caminho duplo: pasta frontend > pasta frontend
-    # Agora está correto
     build: ./frontend
     ports:
       - "5173:5173"
     networks:
       - hackathon-net
     environment:
-      # O Frontend roda no navegador do usuário, então ele chama o Java via localhost
+      # O navegador do usuário (fora do docker) precisa acessar o java na 8080
       - VITE_API_URL=http://localhost:8080
 
-# --- A REDE INTERNA ---
 networks:
   hackathon-net:
     driver: bridge
+
+volumes:
+  pgdata:
